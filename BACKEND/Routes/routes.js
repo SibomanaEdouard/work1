@@ -4,10 +4,12 @@ const express=require("express");
 const app=express();
 const Tasks=require("../models/tasks");
 const bcrypt=require('bcrypt');
-const nodEmail=require("nodemailer");
+const nodemailer=require("nodemailer");
 const jwt=require("jsonwebtoken");
 const CompletedSchema=require("../models/completed");
-
+const crypto=require("crypto");
+const { link } = require("fs");
+const secretekey=generateSecreteKey();
 //this is to insert the user in the system
 app.post('/sign',async(req,res)=>{
 
@@ -238,13 +240,70 @@ console.log('The tasks were gotten successfuly');
 app.post('/resetpassword',async(req,res)=>{
 
   try{
-const email=req.body;
+const {email}=req.body;
+
 //check if the email is found in database
-    res.status(200).json({'message':"Its fine "});
+const emailChecker=await userSchema.findOne({email});
+if(emailChecker!=null){
+ 
+  const link="http://localhost:5000/resetpassword/$emailCheck.firstname";
+
+const transporter = nodemailer.createTransport({
+  // host: 'smtp.gmail.com',
+  // port: 465,
+service:"gmail",
+  auth: {
+      user:"sibomanaedouard83@gmail.com",
+      pass:"sibo2003%"
+  }
+});
+const mailOptions={
+
+from:"sibomanaedouard83@gmail.com",
+to:"siboedouard88@gmail.com",
+subject:"Reset password",
+Text:"This is testing email",
+}
+transporter.sendMail(mailOptions, (error, info) => {
+  if (error) {
+    console.log(error);
+    res.status(500).json({ error: 'Failed to send reset password email' });
+  } else {
+    console.log('Reset password email sent: ' + info.response);
+    res.status(200).json({ message: 'Reset password email sent successfully' });
+  }
+});
+}
+  
+else{
+  res.status(400).json({'error':"Invalid email,Please check it and try again!!"});
+}
+ 
   }catch(error){
     res.status(400).json({"error":"something went wrong"});
     console.log(error);
   } 
 })
+
+//function to generate the secrete key
+function generateSecreteKey(length=32){
+  return crypto.randomBytes(length).toString('hex');
+}
+//function to generate the resettoken;
+function generateResetToken(userId){
+  const payLoad={userId};
+  const options={expiresIn:'5s'};
+  return jwt.sign(payLoad,secretekey,options);
+}
+
+//this is the function to verify the token 
+function verifyResetToken(token, secretKey) {
+  try {
+    const decoded = jwt.verify(token, secretKey);
+    return decoded.userId;
+  } catch (error) {
+    throw new Error('Invalid or expired reset token');
+  }
+}
 
 module.exports=app;

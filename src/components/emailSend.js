@@ -4,35 +4,43 @@ import { useState } from "react";
 //let me create components 
 const EmailForm=()=>{
 const[input,setInput]=useState("email");
-
-//this is to handle submit
-const handleSubmit=async(event)=>{
+//this is the function to handle submit
+const handleSubmit = async (event) => {
     event.preventDefault();
-try{
-    //this is to send response to the backend API
-const response= await fetch("http://localhost:5000/resetpassword",{
-method:"POST",
-headers:{
-"Content-Type":"application/json"
-},
-body:JSON.stringify(input)
-});
-if(response.ok){
-const messagesFromBack=await response.json();
-alert(messagesFromBack);
-setInput({
-    email:""
-})
-window.location.href='/';
-}
-else{
-    const messageError=await response.json();
-    throw new Error(messageError.error);
-}
-}catch(error){
-    console.log(error);
-}
-}
+    try {
+      // This is to send a response to the backend API
+      const response = await fetch("http://localhost:5000/resetpassword", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(input)
+      });
+  
+      if (response.ok) {
+        const messagesFromBack = await response.json();
+        alert(messagesFromBack);
+        setInput({
+          email: ""
+        });
+        window.location.href = '/';
+      } else if (response.status === 400) {
+        
+        // Handle specific error case for incorrect email
+        const messageError = await response.json();
+       
+        alert(messageError.error);
+      } else {
+        const messageError = await response.json();
+        throw new Error(messageError.error);
+      }
+    } catch (error) {
+      console.log(error);
+      window.location.href = '/resetpassword';
+    }
+  };
+  
+  
 //this is to handle change
 const handleChange=(event)=>{
     event.preventDefault();
@@ -42,18 +50,21 @@ const handleChange=(event)=>{
 
 
 }
-return(<div>
-
-<h1>Enter your email</h1>
-<form onSubmit={handleSubmit}>
+return(<div className="row">
+<div className="col-md-12 text-center">
+<h1 className="text-primary">Enter your email</h1>
+<form onSubmit={handleSubmit} className="bg-primary">
     <label for="email">Email</label><br/>
 <input
+className=""
 name="email"
 value={input.email || ""}
 onChange={handleChange}
+required
 /><br/>
-<button>submit</button>
+<button className="bg-success">submit</button>
 </form>
+</div>
 </div>)
 }
 export default EmailForm;
