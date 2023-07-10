@@ -1,4 +1,4 @@
-import { FaEye,FaEyeSlash } from "react-icons/fa";
+// import { FaEye,FaEyeSlash } from "react-icons/fa";
 import { useState } from "react";
 import React from "react";
 function loHandle(e){
@@ -91,27 +91,39 @@ const [showpassword,setShowpassword]=useState(false);
                            required
                            placeholder="Enter email"
                     /><br/>
-                    <label>Password</label><br/>
-                    <input type={showpassword ? 'text':'password'}
-                           name="password"
-                           id="password"
-                           value={inputs.password}
-                           onChange={handleChange}
-                           placeholder="Enter password"
-                    />
-                 {showpassword ? (
-                    <FaEyeSlash
-                    
-                    className="pass-icons"
-                    onClick={()=>setShowpassword(false)}
-                    />
-                 ):(
-                    <FaEye
-                    onClick={()=>setShowpassword(true)}
-                    className="pass-icons"
-                    />
-                 )}
-                    <br/>
+                  
+                 <label>
+            Password
+            <br />
+<div className="form-group">
+  <div className="input-icon">
+    <input
+      type={showpassword ? 'text' : 'password'}
+      name="password"
+      id="password"
+      placeholder="Enter Your password"
+      required
+      value={inputs.password || ""}
+      onChange={handleChange}
+      className="input-field"
+    />
+    {showpassword ? (
+      <i
+        className="fas fa-eye-slash pass-icon"
+        onClick={() => setShowpassword(false)}
+      ></i>
+    ) : (
+      <i
+        className="fas fa-eye pass-icon"
+        onClick={() => setShowpassword(true)}
+      ></i>
+    )}
+  </div>
+</div>
+
+
+          </label>
+                                     <br/>
 
                     <button className="signupb btn bg-primary mt-3 text-success">Sign Up</button>
                 </form>

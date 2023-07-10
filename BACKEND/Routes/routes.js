@@ -115,12 +115,18 @@ app.get('/tasks', async (req, res) => {
 //this is the logic for updating the task
 app.put('/', async (req, res) => {
   const { sender, taskId,updatedtask } = req.body;
-
   try {
+    //let me check if it is completed
+  const isCompleted=await CompletedSchema.findOne({taskId});
+  if(isCompleted){
+    res.status(300).json({message:"The task is completed so you can't update it!"});
+    console.log("The task is completed");
+  }else{
     const task = await Tasks.findOne({ sender, _id: taskId });
 
     if (!task) {
-      return res.status(404).json("The task is not found!");
+      return res.status(404).json({error:"The task is not found!"});
+      console.log("Failed to update the task");
     }
 
     const updatedTask = await Tasks.findByIdAndUpdate(task._id, {$set:{task:updatedtask}}, { new: true });
@@ -129,11 +135,13 @@ app.put('/', async (req, res) => {
       res.status(200).json(updatedTask);
       console.log("the task was updated successfully!!");
     } else {
-      res.status(400).json("Failed to update the task");
+      res.status(500).json({error:"Failed to update the task"});
+      console.log("Failed to update the task");
     }
+  }
   } catch (error) {
     console.log(error);
-    res.status(500).json("Something went wrong!");
+    res.status(500).json({error:"Something went wrong!"});
   }
 });
 
@@ -143,24 +151,24 @@ app.put('/', async (req, res) => {
 // //this is to delete one task from the database
 app.delete('/one', async (req, res) => {
   const { sender, taskId } = req.body;
-
+  
   try {
     const task = await Tasks.findOne({ sender, _id: taskId });
 
     if (!task) {
-      return res.status(404).json("The task is not found!");
+      return res.status(404).json({message:"The task is not found!"});
     }
 
     const updatedTask = await Tasks.findByIdAndDelete(task);
 
     if (updatedTask) {
-      res.status(200).json("The task was deleted successfully");
+      res.status(200).json({message:"The task was deleted successfully"});
     } else {
-      res.status(400).json("Failed to  delete the task");
+      res.status(400).json({error:"Failed to  delete the task"});
     }
   } catch (error) {
     console.log(error);
-    res.status(500).json("Something went wrong!");
+    res.status(500).json({error:"Something went wrong!"});
   }
 });
 
@@ -169,17 +177,25 @@ app.delete('/one', async (req, res) => {
 app.delete('/',async(req,res)=>{
     const {sender}=req.body;
     try{
+      //let me check if there is any task in the database
+      const isTask=await Tasks.find({sender});
+      if(isTask.length==0){
+        res.status(404).json({message:"There is no task to delete"});
+      } else{
         const DeleteAll=await Tasks.deleteMany({sender});
         if(DeleteAll){
-            res.status(200).json("All tasks were deleted");
+            res.status(200).json({message:"All tasks were deleted"});
         }
         else{
-            res.status(400).json("Tasks are not deleted");
+            res.status(400).json({error:"Tasks are not deleted"});
         }
+
+      }
+      
         
     }catch(error){
         console.log(error);
-        res.status(400).json("Some went wrong");
+        res.status(400).json({error:"Some went wrong"});
     }
 
 })
@@ -189,50 +205,63 @@ app.post('/completed', async (req, res) => {
   const { sender, taskId} = req.body;
 
   try {
-    const task = await Tasks.findOne({ sender, _id: taskId }).select('task');
+    const task = await Tasks.findOne({ sender, _id: taskId });
 
-    if (!task) {
+    if (task==null) {
       return res.status(404).json("The task is not found!");
-    }
+    }else{
 
+    //let me check is already completed
+    const checkInCompleted=await CompletedSchema.findOne({sender,taskId});
+    if(checkInCompleted){
+      res.status(200).json({message:"The task is already completed"});
+    }else{
     //let me save to the database
     const saveData=await CompletedSchema.create({
 sender,
 taskId,
-task
+// task
     })
 
 const dataSaved=await saveData.save();
 
     if (dataSaved) {
-      res.status(200).json(dataSaved);
+      res.status(200).json({message:"The task was completed successfully!"});
       console.log('The task was completed successfully!');
     } else {
-      res.status(400).json("Failed to update the task");
+      res.status(400).json({error:"Failed to update the task"});
     }
+  }
+  }
   } catch (error) {
     console.log(error);
-    res.status(500).json("Something went wrong!");
+    res.status(500).json({error:"Something went wrong!"});
   }
 });
 
 
 
 //this is the logic to get all completed tasks
-app.get('/completed', async (req, res) => {
+app.post('/completedTasks', async (req, res) => {
+  const {sender}=req.body;
 
   try {
-    const task = await CompletedSchema.find().select(" task , _id");
+    const task = await CompletedSchema.find({sender}).select("taskId");
 
-    if (task==0) {
-      return res.status(404).json("The task is not found!");
+    if (task.length==0) {
+      return res.status(404).json({error:"The task is not found!"});
     }else{
-res.status(200).json(task)
-console.log('The tasks were gotten successfuly');
+      const taskIds = task.map((task)=> task.taskId);
+      //let me check the ids in the tasks
+      const myTasks= await Tasks.find({_id:{$in:taskIds}}).select("task");
+    
+      res.status(200).json(myTasks);
+      
+console.log('The tasks were taken successfuly');
     }
   } catch (error) {
     console.log(error);
-    res.status(500).json("Something went wrong!");
+    res.status(500).json({error:"Something went wrong!"});
   }
 });
 

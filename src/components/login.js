@@ -1,10 +1,5 @@
 import React from "react";
 import { useState } from "react";
-import {FaEye, FaEyeSlash} from 'react-icons/fa'
-
-
-
-
 // updating password
 const UpdatePass=(e)=>{
 e.preventDefault();
@@ -115,28 +110,33 @@ function LoginForm() {
           <label>
             Password
             <br />
-            <input
-              type={showpassword ? 'text':'password'}
-              name="password"
-              id="password"
-              placeholder="Enter Your password"
-              required
-              value={inputs.password || ""}
-              onChange={handleChange}
-              className="form-group"
-              
-            />
-            {showpassword ? (
-              <FaEyeSlash
-              className="pass-iconl"
-              onClick={()=>setShowpassword(false)}
-              />
-            ):(
-              <FaEye 
-              className="pass-iconl"
-              onClick={()=>setShowpassword(true)}
-              />
-            )}
+<div className="form-group">
+  <div className="input-icon">
+    <input
+      type={showpassword ? 'text' : 'password'}
+      name="password"
+      id="password"
+      placeholder="Enter Your password"
+      required
+      value={inputs.password || ""}
+      onChange={handleChange}
+      className="input-field"
+    />
+    {showpassword ? (
+      <i
+        className="fas fa-eye-slash pass-icon"
+        onClick={() => setShowpassword(false)}
+      ></i>
+    ) : (
+      <i
+        className="fas fa-eye pass-icon"
+        onClick={() => setShowpassword(true)}
+      ></i>
+    )}
+  </div>
+</div>
+
+
           </label>
           <br />
           <button type="submit" className="logobutton  btn btn-primary">Login</button>

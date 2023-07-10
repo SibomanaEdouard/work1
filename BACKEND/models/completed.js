@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
 
 const CompletedSchema = new mongoose.Schema({
-  task: {
-    type:String,
-    required:true
-  },
+  // task: {
+  //   type:String,
+  //   required:true
+  // },
   sender:{
      type:mongoose.Schema.Types.ObjectId,
     ref:'users',

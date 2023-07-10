@@ -364,5 +364,21 @@ ul li:before {
 .taskDsbutton{
 padding: 0% 2%;
 }
+.input-icon {
+  position: relative;
+}
+
+.input-field {
+  padding-right: 30px;
+}
+
+.pass-icon {
+  position: absolute;
+  top: 50%;
+  right: 5px;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
 
 

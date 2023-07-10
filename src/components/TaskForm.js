@@ -4,7 +4,7 @@ import {BsTrash} from 'react-icons/bs'
 import {GrEdit} from "react-icons/gr"
 import {AiFillDelete} from 'react-icons/ai'
 import {TiTick}from 'react-icons/ti'
-import { Fragment } from "react";
+// import { Fragment } from "react";
 
 const senderId = localStorage.getItem("id");
 
@@ -16,6 +16,7 @@ const Form = () => {
   const [isUpdateMode,setIsUpdateMode]=useState(false);
   const [selectedTaskId, setSelectedTaskId] = useState('');
   const [completedTasks, setCompletedTasks] = useState([]);
+ 
 
 
   const handleChanges = (e) => {
@@ -34,6 +35,7 @@ const Form = () => {
     }
   };
 
+
 //this is to retrieve the tasks from the backend
   const fetchTasks = async () => {
     try {
@@ -49,64 +51,104 @@ const Form = () => {
   };
 
 
-  //this is the components to delete data
+//this is to delete all tasks
 const DeleteTasks = async () => {
   try {
-    const sender = localStorage.getItem("id");
-    const response = await axios.delete('http://localhost:5000',{
-      data:{
-       sender:senderId 
+    const response = await axios.delete('http://localhost:5000', {
+      data: {
+        sender: senderId
       }
     });
-    console.log(response.data);
-    setTasks("");
-    alert('All tasks were deleted');
+   if(response.status===200){
+    setTasks([]); // Update to an empty array instead of an empty string
+   
+    alert(response.data.message);
+   }
+else if(response.status===404){
+  const resMess=response.data;
+  alert(resMess.message);
+}  else{
+  alert(response.data.error)
+} 
   } catch (error) {
     console.error(error);
-    alert("Error in deleting tasks");
+    alert(error);
   }
 };
 
+
 //This is how to delete task one by one
+// const handleDeleteOne=async(taskId,senderId)=>{
+  
+//   const Response = await axios.delete('http://localhost:5000/one', {
+//     data:{
+//     sender: senderId,
+//     taskId: taskId
+//     }
+//   })
+//     .then(Res => {
+//       // Response.json();
+//     alert("The task was deleted successfully");
+//     })
+//     .catch(error => {
+//       console.error(error);
+//       console.log('Sender ID:', senderId);
+// console.log('Task ID:', taskId);
+
+//       alert("Something went wrong!");
+//     });
+// }
+
 const handleDeleteOne=async(taskId,senderId)=>{
+  try{
+  
   const Response = await axios.delete('http://localhost:5000/one', {
     data:{
     sender: senderId,
     taskId: taskId
     }
   })
-    .then(Res => {
-    alert("The task was deleted successfully");
-    })
-    .catch(error => {
-      console.error(error);
-      console.log('Sender ID:', senderId);
-console.log('Task ID:', taskId);
-
-      alert("Something went wrong!");
-    });
+  if(Response.status===200){
+    alert(Response.data.message);
+  }
+  else if(Response.status===404){
+    alert(Response.data.message);
+  }
+  else{
+    alert(Response.data.error);
+  }
+}catch(error){
+alert(error);
+}
 }
 
-//this is the function to update the task one by one
-const handleEdit= async () => {
+// //this is the function to update the task one by one
+const handleEdit = async () => {
   try {
     const response = await axios.put('http://localhost:5000', {
       sender: senderId,
       taskId: selectedTaskId,
       updatedtask: task
     });
-    alert('Task updated successfully');
-    
 
-    setTask('');
+    if (response.status === 200) {
+      alert('Task updated successfully');
+    } else {
+      throw new Error(response.data.message);
+    }
+
     setIsUpdateMode(false);
   } catch (error) {
     console.error(error);
-    console.log('Sender ID:', senderId);
-   
-    alert('Failed to update the task');
+    if (error.response && error.response.status === 300) {
+      alert(error.response.data.message);
+    } else {
+      alert('Failed to update the task');
+    }
   }
 };
+
+
 
 //this is to mark the task as completed
 const SaveCompleted= async (senderId,taskId) => {
@@ -123,41 +165,44 @@ const SaveCompleted= async (senderId,taskId) => {
   
       })
     });
-    
+    if(response.ok){
+      const data= await response.json();
+   
+      console.log(data);
+      alert(data.message);
+    }else{
+      const data= await response.json();
+      alert(data.error);
+    }
   } catch (error) {
     console.error(error);
     console.log('Sender ID:', senderId);
    
-    alert('Failed to be completed the task');
+    alert(error);
   }
 };
-// show the completed tasks
+
+//this is the login to retrieve completed task for the user
 const showCompletedTask = async () => {
   try {
-
-
-    
-    const response = await fetch('http://localhost:5000/completed', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+    const response = await axios.post('http://localhost:5000/completedTasks', {
+      sender:senderId
     });
 
-    if (response.ok) {
-      const completedTasks = await response.json();
+    if (response.status === 200) {
+      const completedTasks = response.data;
       console.log(completedTasks);
       const taskList = completedTasks.map((task) => task.task);
       setCompletedTasks(taskList);
-    
     } else {
-      alert('Something went wrong while retrieving completed tasks');
+      throw new Error('Something went wrong while retrieving completed tasks');
     }
   } catch (error) {
     console.log(error);
-    alert('Failed to retrieve completed tasks');
+    alert('There is no completed tasks to be retrieved');
   }
 };
+
 
 
   return (
@@ -167,7 +212,7 @@ const showCompletedTask = async () => {
         <div className="col-md-4">
       <form>
         <input type="text" name="task" value={task} onChange={handleChanges} />
-        <button onClick={isUpdateMode? handleEdit:fetchData} className="bg-primary">{isUpdateMode ? "Update Task":"Add Task"}</button>
+        <button onClick={isUpdateMode? handleEdit:fetchData} className="bg-primary text-white">{isUpdateMode ? "Update Task":"Add Task"}</button>
        
       
       </form>
@@ -176,7 +221,7 @@ const showCompletedTask = async () => {
       <div className="col-md-8 deleteAll">
         <div  className="bg-danger w-25">
       <AiFillDelete onClick={DeleteTasks} className="fs-3"/>
-      <Fragment className="text-success">Delete All tasks</Fragment>
+      <button className="text-white btn border-0">Delete All tasks</button>
       </div>
       </div>
       </div>
@@ -190,37 +235,44 @@ const showCompletedTask = async () => {
     {/* Tasks section */}
     <div className="border ">
     <div className="tasksInvoker">
-      <button onClick={fetchTasks} className="bg-primary taskDsbutton">Tasks</button>
+      <button onClick={fetchTasks} className="bg-primary taskDsbutton text-white">Tasks</button>
     </div>
-    <div>
-      {tasks.length > 0 ? (
-        <ul>
-          {tasks.map((task) => (
-            <li key={task._id}>
-              {task.task}
-              {/* This is for deleting */}
-              <BsTrash onClick={() => handleDeleteOne(task._id, senderId)} className="bg-danger"/>
-              {/* This is for editing */}
-              <GrEdit
-                onClick={() => {
-                  setSelectedTaskId(task._id);
-                  setTask(task.task);
-                  setIsUpdateMode(true);
-                }}
-                className="bg-primary "
-              />
-              {/* This is for completing */}
-              <TiTick
-                onClick={() => SaveCompleted(senderId, task._id)}
-                className="bg-success"
-              />
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <h1>No tasks</h1>
-      )}
-      </div>
+
+   
+
+
+
+
+      <div>
+  <ul>
+    {tasks.map((task) => (
+      <li key={task._id}>
+        {task.task}
+        {/* This is for deleting */}
+        <BsTrash onClick={() => handleDeleteOne(task._id, senderId)} className="bg-danger"/>
+        
+        {/* This is for editing */}
+        <GrEdit
+          onClick={() => {
+            setSelectedTaskId(task._id);
+            setTask(task.task);
+            setIsUpdateMode(true);
+          }}
+          className="bg-primary"
+        />
+
+        {/* This is for completing */}
+        <TiTick
+          onClick={() => SaveCompleted(senderId, task._id)}
+          className="bg-success"
+        />
+      </li>
+    ))}
+  </ul>
+  {tasks.length === 0 && <h1>Click to see the tasks</h1>}
+</div>
+
+
     </div>
   </div>
   
@@ -228,7 +280,7 @@ const showCompletedTask = async () => {
     {/*This is for Completed tasks section */}
     <div className="border">
     <div className="completedTasks  ">
-      <button onClick={showCompletedTask} className="bg-primary">Completed Tasks</button>
+      <button onClick={showCompletedTask} className="bg-primary text-white">Completed Tasks</button>
     </div>
     <div>
       {completedTasks.length > 0 ? (
@@ -238,7 +290,7 @@ const showCompletedTask = async () => {
           ))}
         </ul>
       ) : (
-        <h1>No completed tasks</h1>
+        <h1>Click button to see tasks</h1>
       )}
     </div>
   </div>
@@ -251,7 +303,6 @@ const showCompletedTask = async () => {
 
 
 export default Form;
-
 
 
 
