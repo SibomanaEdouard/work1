@@ -9,7 +9,7 @@ import EmailForm from './components/emailSend';
 
 function App() {
   return(
-    <Router basename='work1'>
+    <Router basename="/">
       <Routes>
       <Route path='/tasks' element={<Form/>}/>
       <Route path='/sign' element={<SignInForm/>}/>
