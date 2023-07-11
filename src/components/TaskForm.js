@@ -25,7 +25,7 @@ const Form = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.post("http://localhost:5000/tasks", { task, sender });
+      const response = await axios.post("https://koracha.onrender.com/tasks", { task, sender });
       console.log(response.data);
       alert("Task was saved successfully");
       setTask('');
@@ -39,7 +39,7 @@ const Form = () => {
 //this is to retrieve the tasks from the backend
   const fetchTasks = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/tasks?sender=${sender}`);
+      const response = await axios.get(`https://koracha.onrender.com/tasks?sender=${sender}`);
       console.log(response.data);
       const Task=response.data;
       setTasks(Task);
@@ -54,7 +54,7 @@ const Form = () => {
 //this is to delete all tasks
 const DeleteTasks = async () => {
   try {
-    const response = await axios.delete('http://localhost:5000', {
+    const response = await axios.delete('https://koracha.onrender.com', {
       data: {
         sender: senderId
       }
@@ -76,33 +76,10 @@ else if(response.status===404){
   }
 };
 
-
-//This is how to delete task one by one
-// const handleDeleteOne=async(taskId,senderId)=>{
-  
-//   const Response = await axios.delete('http://localhost:5000/one', {
-//     data:{
-//     sender: senderId,
-//     taskId: taskId
-//     }
-//   })
-//     .then(Res => {
-//       // Response.json();
-//     alert("The task was deleted successfully");
-//     })
-//     .catch(error => {
-//       console.error(error);
-//       console.log('Sender ID:', senderId);
-// console.log('Task ID:', taskId);
-
-//       alert("Something went wrong!");
-//     });
-// }
-
 const handleDeleteOne=async(taskId,senderId)=>{
   try{
   
-  const Response = await axios.delete('http://localhost:5000/one', {
+  const Response = await axios.delete('https://koracha.onrender.com/one', {
     data:{
     sender: senderId,
     taskId: taskId
@@ -125,7 +102,7 @@ alert(error);
 // //this is the function to update the task one by one
 const handleEdit = async () => {
   try {
-    const response = await axios.put('http://localhost:5000', {
+    const response = await axios.put('https://koracha.onrender.com', {
       sender: senderId,
       taskId: selectedTaskId,
       updatedtask: task
@@ -153,7 +130,7 @@ const handleEdit = async () => {
 //this is to mark the task as completed
 const SaveCompleted= async (senderId,taskId) => {
   try {
-    const response = await fetch('http://localhost:5000/completed', {
+    const response = await fetch('https://koracha.onrender.com/completed', {
       method:'POST',
       headers:{
         'Content-Type':'application/json'
@@ -185,7 +162,7 @@ const SaveCompleted= async (senderId,taskId) => {
 //this is the login to retrieve completed task for the user
 const showCompletedTask = async () => {
   try {
-    const response = await axios.post('http://localhost:5000/completedTasks', {
+    const response = await axios.post('https://koracha.onrender.com/completedTasks', {
       sender:senderId
     });
 

@@ -25,7 +25,7 @@ function SignInForm(){
     const FetchData=async(event)=>{
         event.preventDefault();
         try{
-            const response=await fetch("http://localhost:5000/sign",{
+            const response=await fetch("https://koracha.onrender.com/sign",{
                 method:"POST",
                 headers:{
                     "Content-Type":"application/json"
