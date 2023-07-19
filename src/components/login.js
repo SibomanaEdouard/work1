@@ -80,13 +80,19 @@ function LoginForm() {
 
   //The fields of login formm
     return (<div className="d-flex justify-content-center align-items-center mt-5">
-      <div className="bg-white w-25 p-5">
+      <div className="bg-white w-50 p-5">
         <h1 className="fw-bold text-center ">Login</h1>
-      <form className="bg-white p-4" onSubmit={FetLogin}>
-        <ImMail2/>
+      <form className="bg-white" onSubmit={FetLogin}>
+       
         <label>Email</label><br/>
+        <div className="input-group bg-white">
+        <div className="input-group-prepend">
+              <span className="input-group-text bg-white">
+                <ImMail2 className="mt-2" style={{color:"#1959B8",borderRight:"0"}}/>
+              </span>
+            </div>
         <input
-            className="form-group email1"
+            className="form-group email1 form-control borderl-0"
               type="email"
               name="email"
               id="email"
@@ -95,10 +101,17 @@ function LoginForm() {
               value={inputs.email || ""}
               onChange={handleChange}
             
-            /><br/>
+            />
+            </div><br/>
 <label>Password</label><br/>
-<BiLock/>
+<div className="input-group">
+  <div className="input-group-prepend">
+  <span className="input-group-text bg-white">
+<BiLock className="input-icon mt-2" style={{color:"#1959B8",borderRight:"0"}}/>
+</span>
+</div>
 <input
+
       type={showpassword ? 'text' : 'password'}
       name="password"
       id="password"
@@ -106,25 +119,28 @@ function LoginForm() {
       required
       value={inputs.password || ""}
       onChange={handleChange}
-      className="input-field"
+      className="input-field form-control"
     />
     {showpassword ? (
       <i
-        className="fas fa-eye-slash pass-icon"
+        className="fas fa-eye-slash pass-icon bg-white"
         onClick={() => setShowpassword(false)}
+        style={{color:"#1959B8",borderRight:"0"}}
       ></i>
     ) : (
       <i
-        className="fas fa-eye pass-icon"
+        className="fas fa-eye pass-icon bg-white"
         onClick={() => setShowpassword(true)}
+        style={{color:"#1959B8",borderRight:"0"}}
       ></i>
     )}
+    </div>
     <br/>
 <input
 type="checkbox"
 />
 <label>Remember me</label><br/>
-<input type="submit" value="Login" className="loginbutton"/>
+<input type="submit" value="Login" className="loginbutton text-center input-field form-control text-white" style={{backgroundColor:"#1959B8"}}/>
       </form>
       <div className="bg-white"> <span className="Ask">New here ?</span><button onClick={HandleSigning} className="buttons border-0 bg-white">SignUp</button></div>
       </div>
