@@ -1,6 +1,14 @@
 .App {
   text-align: center;
 }
+*{
+  
+  background-color:#DEDEDE;
+}
+body{
+
+  background-color: #ffffff;
+}
 
 .App-logo {
   height: 40vmin;
@@ -345,11 +353,23 @@ margin-bottom: 4%;
   font-family: inter;
   font-weight: bold;
   font-size: large;
+  color: #1959B8;
 }
 .form1 input,.forms input{
   width: 20vw;
   margin-bottom: 2%;
   outline: none;
+
+}
+.forms{
+  background-color: #ffffff;
+}
+.forms input{
+  border: 1px solid #717171;
+  
+}
+form ,label , input,button ,h1,span{
+  background-color: white;
 }
 ul{
   list-style: none;
@@ -379,6 +399,27 @@ padding: 0% 2%;
   transform: translateY(-50%);
   cursor: pointer;
 }
+.signupb{
+  background-color: #1959B8;
+  border-radius: 3px;
+  padding: 2%;
+}
 
 
+.checkbox input ,label{
+  display: inline;
+  font-family: inter;
 
+}
+.container{
+  background-color: white;
+}
+.lock{
+  position: absolute;
+  background-color: white;
+  top: 2px;
+padding-left:1%;
+}
+.loginbutton{
+  background-color: #1959B8;
+}

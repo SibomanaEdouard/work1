@@ -1,6 +1,9 @@
 // import { FaEye,FaEyeSlash } from "react-icons/fa";
+import {BiLock} from "react-icons/bi"
+import {ImMail2} from "react-icons/im"
 import { useState } from "react";
 import React from "react";
+import{CiUser} from "react-icons/ci"
 function loHandle(e){
     e.preventDefault();
     window.location.href="/";
@@ -10,8 +13,7 @@ function loHandle(e){
 function SignInForm(){
 
     const [inputs,setInputs]=useState({
-        firstname:"",
-        lastname:"",
+        username:"",
         email:"",
         password:""
     });
@@ -25,7 +27,7 @@ function SignInForm(){
     const FetchData=async(event)=>{
         event.preventDefault();
         try{
-            const response=await fetch("https://koracha.onrender.com/sign",{
+            const response=await fetch("http://localhost:5000/sign",{
                 method:"POST",
                 headers:{
                     "Content-Type":"application/json"
@@ -36,8 +38,7 @@ function SignInForm(){
                 alert("WELCOME TO US ");
                 setInputs({
 email:"",
-firstname:"",
-lastname:"",
+username:"",
 password:"",
 
 });
@@ -56,32 +57,24 @@ password:"",
 //function to hide or show passsword
 const [showpassword,setShowpassword]=useState(false);
     return(
-        <div className="container mt-5 border w-50 h-50 p-5">
-            <div className="row justify-content-center pb-5">
-            <div className="col-md-6">
-            <h1 className="signhead mt-3 mb-5 text-primary">Sign Up</h1>
+        <div className="">
+        <div className="container mt-5 border w-50 h-50 p-5 bg-white">
+            <div className="row justify-content-center pb-5 bg-white">
+            <div className="col-md-6 bg-white">
+            <h1 className="signhead mt-3 mb-5  fw-bold text-center bg-white">Sign Up</h1>
             <div className="forms"> 
                 <form onSubmit={FetchData}>
-                    <label>FirstName</label><br/>
+                    <CiUser/>
+                    <label>username</label><br/>
                     <input type="text" 
-                           name="firstname" 
-                           id="firstname"
+                           name="username" 
+                           id="username"
                            required
-                           value={inputs.firstname}
+                           value={inputs.username}
                            onChange={handleChange}
-                           placeholder="Enter firstname"
+                           placeholder="Enter your username"
                     /><br/>
-
-                    <label>LastName</label><br/>
-                    <input type="text"
-                           name="lastname"
-                           id="lastname"
-                           required
-                           value={inputs.lastname}
-                           onChange={handleChange}
-                           placeholder="Enter lastname"
-                    /><br/>
-
+<ImMail2 />
                     <label>Email</label><br/>
                     <input type="email" 
                            name="email"
@@ -89,19 +82,19 @@ const [showpassword,setShowpassword]=useState(false);
                            onChange={handleChange}
                            id="email"
                            required
-                           placeholder="Enter email"
+                           placeholder="Enter your  email"
                     /><br/>
-                  
                  <label>
             Password
             <br />
 <div className="form-group">
   <div className="input-icon">
+    <BiLock className="lock"/>
     <input
       type={showpassword ? 'text' : 'password'}
       name="password"
       id="password"
-      placeholder="Enter Your password"
+      placeholder="Enter password"
       required
       value={inputs.password || ""}
       onChange={handleChange}
@@ -120,23 +113,37 @@ const [showpassword,setShowpassword]=useState(false);
     )}
   </div>
 </div>
-
-
           </label>
-                                     <br/>
+                                    
+        <div className="checkbox bg-white">
+      <input  type="checkbox" id="termsCheckbox" required />
+      <label >
+        I agree to the terms of service and conditions
+      </label>
+      </div>
+   
 
-                    <button className="signupb btn bg-primary mt-3 text-success">Sign Up</button>
+                    <input
+                    type="submit"
+                    value="sign up"
+                    className="text-white signupb"
+                    />
                 </form>
 
-                <p className="h1s">Already have account ? 
-                    <button onClick={loHandle} className="buttons">LOGIN</button>
+                <p className="h1s bg-white">Already have account ? 
+                    <button onClick={loHandle} className="buttons bg-white">login</button>
             
                 </p>
             </div>
             </div>
         </div>  
         </div>
+        </div>
     )
 }
 
 export default SignInForm;
+
+
+
+

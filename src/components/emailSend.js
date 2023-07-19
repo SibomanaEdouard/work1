@@ -9,7 +9,7 @@ const handleSubmit = async (event) => {
     event.preventDefault();
     try {
       // This is to send a response to the backend API
-      const response = await fetch("https://koracha.onrender.com/resetpassword", {
+      const response = await fetch("http://localhost:5000/resetpassword", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

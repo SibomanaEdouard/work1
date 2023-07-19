@@ -1,11 +1,7 @@
 import React from "react";
+import {BiLock} from "react-icons/bi"
+import {ImMail2} from "react-icons/im"
 import { useState } from "react";
-// updating password
-const UpdatePass=(e)=>{
-e.preventDefault();
-window.location.href='/resetpassword';
-}
-
 //to sign in page
 const HandleSigning=(e)=>{
 
@@ -37,7 +33,7 @@ function LoginForm() {
  
       try{
 
-      const response=await fetch("https://koracha.onrender.com/login",{
+      const response=await fetch("http://localhost:5000/login",{
         method:"POST",
         headers:{
         "Content-Type":"application/json",  
@@ -83,36 +79,26 @@ function LoginForm() {
  
 
   //The fields of login formm
-    return (
-<div className="container border mt-5 w-50 h-50 pt-5 pb-5">
-<div className="row justify-content-center">
-  <div className="col-md-6">
-      <h1 className="headerlo pb-5 text-primary">Login</h1>
-      <div className="form1">
-      <form onSubmit = {FetLogin}>
-          <div className="form-group col-md-4 mb-3 ">
-          <label>
-            Email
-            <br />
-            <input
+    return (<div className="d-flex justify-content-center align-items-center mt-5">
+      <div className="bg-white w-25 p-5">
+        <h1 className="fw-bold text-center ">Login</h1>
+      <form className="bg-white p-4" onSubmit={FetLogin}>
+        <ImMail2/>
+        <label>Email</label><br/>
+        <input
             className="form-group email1"
               type="email"
               name="email"
               id="email"
-              placeholder="Enter email"
+              placeholder="Enter your email"
               required
               value={inputs.email || ""}
               onChange={handleChange}
             
-            />
-          </label>
-          <br />
-          <label>
-            Password
-            <br />
-<div className="form-group">
-  <div className="input-icon">
-    <input
+            /><br/>
+<label>Password</label><br/>
+<BiLock/>
+<input
       type={showpassword ? 'text' : 'password'}
       name="password"
       id="password"
@@ -133,30 +119,18 @@ function LoginForm() {
         onClick={() => setShowpassword(true)}
       ></i>
     )}
-  </div>
-</div>
-
-
-          </label>
-          <br />
-          <button type="submit" className="logobutton  btn btn-primary">Login</button>
-          </div>
-        </form>
-        <br/><br/>
-        <h1><span className="Ask">Forget your password? </span><button onClick={UpdatePass} className="buttons border-0">Reset</button>
-        </h1> 
-        <h1> <span className="Ask">New Here ?</span><button onClick={HandleSigning} className="buttons border-0">SignUp</button></h1>
-       
-       
+    <br/>
+<input
+type="checkbox"
+/>
+<label>Remember me</label><br/>
+<input type="submit" value="Login" className="loginbutton"/>
+      </form>
+      <div className="bg-white"> <span className="Ask">New here ?</span><button onClick={HandleSigning} className="buttons border-0 bg-white">SignUp</button></div>
       </div>
-  
-      </div>
-      </div>
-    </div>
+    </div>)
 
-    );
   }
-  
   export default LoginForm;
 
 
