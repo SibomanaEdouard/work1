@@ -1,56 +1,19 @@
 import React, { useState } from "react";
 import axios from "axios";
-import {BsTrash} from 'react-icons/bs'
-import {GrEdit} from "react-icons/gr"
 import {AiFillDelete} from 'react-icons/ai'
 import {TiTick}from 'react-icons/ti'
-// import { Fragment } from "react";
+import {BsSun} from "react-icons/bs"
+import {FaUserCircle} from "react-icons/fa"
+import SearchForm  from "./Forms";
+import {AiOutlinePlus} from "react-icons/ai"
+import { AllTasks } from "./Forms";
+
 
 const senderId = localStorage.getItem("id");
-
 // This the components to receive the data
 const Form = () => {
-  const [task, setTask] = useState("");
-  const sender = senderId;
   const [tasks, setTasks] = useState([]);
-  const [isUpdateMode,setIsUpdateMode]=useState(false);
-  const [selectedTaskId, setSelectedTaskId] = useState('');
   const [completedTasks, setCompletedTasks] = useState([]);
- 
-
-
-  const handleChanges = (e) => {
-    setTask(e.target.value);
-  };
-
-  const fetchData = async () => {
-    try {
-      const response = await axios.post("http://localhost:5000/tasks", { task, sender });
-      console.log(response.data);
-      alert("Task was saved successfully");
-      setTask('');
-    } catch (error) {
-      console.error(error);
-      alert(error);
-    }
-  };
-
-
-//this is to retrieve the tasks from the backend
-  const fetchTasks = async () => {
-    try {
-      const response = await axios.get(`http://localhost:5000/tasks?sender=${sender}`);
-      console.log(response.data);
-      const Task=response.data;
-      setTasks(Task);
-      console.log(task._id);
-    } catch (error) {
-      console.error(error);
-      alert("Error fetching tasks");
-    }
-  };
-
-
 //this is to delete all tasks
 const DeleteTasks = async () => {
   try {
@@ -60,7 +23,7 @@ const DeleteTasks = async () => {
       }
     });
    if(response.status===200){
-    setTasks([]); // Update to an empty array instead of an empty string
+    setTasks([]); 
    
     alert(response.data.message);
    }
@@ -76,54 +39,7 @@ else if(response.status===404){
   }
 };
 
-const handleDeleteOne=async(taskId,senderId)=>{
-  try{
-  
-  const Response = await axios.delete('http://localhost:5000/one', {
-    data:{
-    sender: senderId,
-    taskId: taskId
-    }
-  })
-  if(Response.status===200){
-    alert(Response.data.message);
-  }
-  else if(Response.status===404){
-    alert(Response.data.message);
-  }
-  else{
-    alert(Response.data.error);
-  }
-}catch(error){
-alert(error);
-}
-}
 
-// //this is the function to update the task one by one
-const handleEdit = async () => {
-  try {
-    const response = await axios.put('http://localhost:5000', {
-      sender: senderId,
-      taskId: selectedTaskId,
-      updatedtask: task
-    });
-
-    if (response.status === 200) {
-      alert('Task updated successfully');
-    } else {
-      throw new Error(response.data.message);
-    }
-
-    setIsUpdateMode(false);
-  } catch (error) {
-    console.error(error);
-    if (error.response && error.response.status === 300) {
-      alert(error.response.data.message);
-    } else {
-      alert('Failed to update the task');
-    }
-  }
-};
 
 
 
@@ -180,64 +96,68 @@ const showCompletedTask = async () => {
   }
 };
 
+//this is to orient the user to add new task form
+const addnew=(e)=>{
+  e.preventDefault();
+window.location.href='/addtask'
+}
 
 
   return (
-    <div>
+    <div className="bg-white w-100 h-100">
+<div className=" row d-flex align-items-center">
+  <div className="col-md-6">
+  <h1 style={{ color: "#1959B7" }} className="">To do</h1>
+  <div className="ml-auto">
+    <SearchForm/>
+  </div>
+  </div>
+  <div className="col-md-6">
+  <div className="">
+    <BsSun />
+  </div>
+  <div className="">
+    <FaUserCircle style={{ color: "#1959B7" }} />
+  </div>
+  </div>
+</div>
     <div className="taskform container mt-5">
       <div className="row justify-content-center">
         <div className="col-md-4">
-      <form>
-        <input type="text" name="task" value={task} onChange={handleChanges} />
-        <button onClick={isUpdateMode? handleEdit:fetchData} className="bg-primary text-white">{isUpdateMode ? "Update Task":"Add Task"}</button>
-       
-      
-      </form>
+<div onClick={addnew}>
+<p>New</p>
+<AiOutlinePlus style={{backgroundColor:"#1959B7"}}/>
+  
+</div>
     
       </div>
-      <div className="col-md-8 deleteAll">
-        <div  className="bg-danger w-25">
+      <div className="col-md-8  deleteAll">
+     
       <AiFillDelete onClick={DeleteTasks} className="fs-3"/>
-      <button className="text-white btn border-0">Delete All tasks</button>
-      </div>
+      <h1 className="fs-2 ">Delete All tasks</h1>
+  
       </div>
       </div>
       </div>
      
     
        
-{/* This is to render the tasks */}
+
 <div className="row m-5">
   <div className="col-md-6">
     {/* Tasks section */}
     <div className="border ">
     <div className="tasksInvoker">
-      <button onClick={fetchTasks} className="bg-primary taskDsbutton text-white">Tasks</button>
+      
     </div>
-
-   
-
-
-
-
+    {/* This is to render all tasks */}
+<AllTasks/>
       <div>
   <ul>
     {tasks.map((task) => (
       <li key={task._id}>
         {task.task}
-        {/* This is for deleting */}
-        <BsTrash onClick={() => handleDeleteOne(task._id, senderId)} className="bg-danger"/>
         
-        {/* This is for editing */}
-        <GrEdit
-          onClick={() => {
-            setSelectedTaskId(task._id);
-            setTask(task.task);
-            setIsUpdateMode(true);
-          }}
-          className="bg-primary"
-        />
-
         {/* This is for completing */}
         <TiTick
           onClick={() => SaveCompleted(senderId, task._id)}
@@ -246,7 +166,7 @@ const showCompletedTask = async () => {
       </li>
     ))}
   </ul>
-  {tasks.length === 0 && <h1>Click to see the tasks</h1>}
+  {/* {tasks.length === 0 && <h1>Click to see the tasks</h1>} */}
 </div>
 
 

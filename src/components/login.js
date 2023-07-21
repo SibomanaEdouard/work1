@@ -84,7 +84,7 @@ function LoginForm() {
         <h1 className="fw-bold text-center ">Login</h1>
       <form className="bg-white" onSubmit={FetLogin}>
        
-        <label>Email</label><br/>
+        <label className="fw-bold">Email</label><br/>
         <div className="input-group bg-white">
         <div className="input-group-prepend">
               <span className="input-group-text bg-white">
@@ -92,7 +92,7 @@ function LoginForm() {
               </span>
             </div>
         <input
-            className="form-group email1 form-control borderl-0"
+            className="form-group email1 form-control borderl-0 shadow-none"
               type="email"
               name="email"
               id="email"
@@ -103,7 +103,7 @@ function LoginForm() {
             
             />
             </div><br/>
-<label>Password</label><br/>
+<label className="fw-bold">Password</label><br/>
 <div className="input-group">
   <div className="input-group-prepend">
   <span className="input-group-text bg-white">
@@ -119,7 +119,7 @@ function LoginForm() {
       required
       value={inputs.password || ""}
       onChange={handleChange}
-      className="input-field form-control"
+      className="input-field form-control shadow-none"
     />
     {showpassword ? (
       <i
@@ -139,8 +139,8 @@ function LoginForm() {
 <input
 type="checkbox"
 />
-<label>Remember me</label><br/>
-<input type="submit" value="Login" className="loginbutton text-center input-field form-control text-white" style={{backgroundColor:"#1959B8"}}/>
+<label className="p-2">Remember me</label><br/>
+<input type="submit" value="Login" className="loginbutton text-center input-field form-control text-white shadow-none" style={{backgroundColor:"#1959B8"}}/>
       </form>
       <div className="bg-white"> <span className="Ask">New here ?</span><button onClick={HandleSigning} className="buttons border-0 bg-white">SignUp</button></div>
       </div>

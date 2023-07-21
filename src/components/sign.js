@@ -57,15 +57,20 @@ password:"",
 //function to hide or show passsword
 const [showpassword,setShowpassword]=useState(false);
     return(
-        <div className="">
-        <div className="container mt-5 border w-50 h-50 p-5 bg-white">
-            <div className="row justify-content-center pb-5 bg-white">
-            <div className="col-md-6 bg-white">
-            <h1 className="signhead mt-3 mb-5  fw-bold text-center bg-white">Sign Up</h1>
-            <div className="forms"> 
-                <form onSubmit={FetchData}>
-                    <CiUser/>
-                    <label>username</label><br/>
+        <div className="d-flex justify-content-center align-items-center mt-5">
+        <div className="mt-5 border w-50  p-5 bg-white">
+            
+            <h1 className="signhead mt-3   fw-bold text-center bg-white">Sign Up</h1>
+         
+               <form onSubmit={FetchData} className="bg-white">
+                  
+                    <label className="fw-bold">username</label><br/>
+                    <div className="input-group">
+                        <div className="input-group-prepend">
+                            <span className="input-group-text bg-white">
+                    <CiUser className="mt-2" style={{color:"#1959B8"}}/>
+                    </span>
+                    </div>
                     <input type="text" 
                            name="username" 
                            id="username"
@@ -73,23 +78,39 @@ const [showpassword,setShowpassword]=useState(false);
                            value={inputs.username}
                            onChange={handleChange}
                            placeholder="Enter your username"
-                    /><br/>
-<ImMail2 />
-                    <label>Email</label><br/>
+                           className="form-control"
+                    />
+                    </div>
+                    <br/>
+                    <label className="fw-bold">Email</label><br/>
+                    <div className="input-group">
+                        <div className="input-group-prepend bg-white">
+                            <span className="input-group-text bg-white">
+                    <ImMail2 className="mt-2" style={{color:"#1959B8"}}/>
+                    </span>
+                    </div>
+                    
                     <input type="email" 
                            name="email"
                            value={inputs.email}
                            onChange={handleChange}
                            id="email"
                            required
+                           className="form-control shadow-none"
                            placeholder="Enter your  email"
-                    /><br/>
-                 <label>
+                    />
+                    </div>
+                    <br/>
+                 <label className="fw-bold">
             Password
+            </label>
             <br />
-<div className="form-group">
-  <div className="input-icon">
-    <BiLock className="lock"/>
+<div className="input-group">
+  <div className="input-group-prepend">
+    <span className="input-group-text">
+    <BiLock className="mt-2" style={{color:"#1959B8"}}/>
+    </span>
+    </div>
     <input
       type={showpassword ? 'text' : 'password'}
       name="password"
@@ -98,7 +119,8 @@ const [showpassword,setShowpassword]=useState(false);
       required
       value={inputs.password || ""}
       onChange={handleChange}
-      className="input-field"
+      className="form-control shadow-none"
+    
     />
     {showpassword ? (
       <i
@@ -112,12 +134,12 @@ const [showpassword,setShowpassword]=useState(false);
       ></i>
     )}
   </div>
-</div>
-          </label>
+
+        
                                     
         <div className="checkbox bg-white">
       <input  type="checkbox" id="termsCheckbox" required />
-      <label >
+      <label className="p-2">
         I agree to the terms of service and conditions
       </label>
       </div>
@@ -126,7 +148,8 @@ const [showpassword,setShowpassword]=useState(false);
                     <input
                     type="submit"
                     value="sign up"
-                    className="text-white signupb"
+                    className="text-white signupb form-control shadow-none"
+                    style={{backgroundColor:"#1959B8"}}
                     />
                 </form>
 
@@ -136,9 +159,7 @@ const [showpassword,setShowpassword]=useState(false);
                 </p>
             </div>
             </div>
-        </div>  
-        </div>
-        </div>
+        
     )
 }
 

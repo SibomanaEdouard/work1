@@ -1,44 +1,65 @@
-import React from "react";
-import { useState } from "react"; 
+import React, { useState } from "react";
+import axios from "axios";
+import {RxCross1} from "react-icons/rx"
 
-const NewTask=()=>{
-    const [task, setTask] = useState("");
-}
-//this is the function to handle changes
 
-const handleChange=(e)=>{
-e.preventDefault();
-setTask(e.target.value);
+const senderId = localStorage.getItem("id");
 
-}
-//this is the function to handle submit
+const NewTask = () => {
+  const [task, setTask] = useState("");
+  const sender = senderId;
 
-const fetchData = async () => {
+  // Function to handle task input changes
+  const handleChange = (e) => {
+    setTask(e.target.value);
+  };
+
+  // Function to submit the task
+  const fetchData = async (e) => {
+    e.preventDefault();
     try {
       const response = await axios.post("http://localhost:5000/tasks", { task, sender });
       console.log(response.data);
-      alert("Task was saved successfully");
-      setTask('');
+      setTask("");
+      if (response.status === 200) {
+        alert("Task was saved successfully");
+        window.location.href = "/tasks";
+      } else {
+        alert("Try again later!");
+      }
     } catch (error) {
       console.error(error);
-      alert(error);
+      alert(error.message);
     }
-
-    return(<div>
-        <h1>New Task</h1>
-        <form onSubmit={fetchData}>
-<label name="task">
-Name
-</label>
-<input 
-name="task"
-type="text"
-value={task}
-onChange={handleChange}
-placeholder="Enter task name"
-/>
-<button typr="submit">Record</button>
-        </form>
-    </div>
-    )
   };
+
+  // Function to navigate to the homepage
+  const homepage = () => {
+    window.location.href = "/tasks";
+  };
+
+  return (
+    <div className="d-flex justify-content-center align-items-center mt-5">
+      <div className="w-50 bg-white p-5 position-relative">
+      <div onClick={homepage} className="bg-white  position-absolute top-0 end-0 p-4">
+      <RxCross1 className="bg-white "/>
+      </div>
+      <h1 className="text-center fs-3 fw-bold">New Task</h1>
+      <form onSubmit={fetchData}>
+        <label htmlFor="task">Name</label>
+        <input
+          name="task"
+          type="text"
+          value={task}
+          onChange={handleChange}
+          placeholder="Enter task name"
+          className="input-group form-control"
+        /><br/>
+        <input type="submit" value="Record" className="form-control text-white" style={{backgroundColor:"#1959B8"}}/>
+      </form>
+    </div>
+    </div>
+  );
+};
+
+export default NewTask;

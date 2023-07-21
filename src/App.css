@@ -2,9 +2,11 @@
   text-align: center;
 }
 *{
-  
+  outline: none;
   background-color:#DEDEDE;
   box-sizing: border-box;
+  text-decoration: none;
+  
 }
 body{
 
@@ -423,4 +425,7 @@ padding-left:1%;
 }
 .loginbutton{
   background-color: #1959B8;
+}
+.deleteAll{
+  display: inline;
 }
