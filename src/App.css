@@ -3,15 +3,16 @@
 }
 *{
   outline: none;
-  background-color:#DEDEDE;
+  /* background-color:#DEDEDE; */
   box-sizing: border-box;
   text-decoration: none;
   
 }
-body{
+/* body{
 
-  background-color: #ffffff;
-}
+ 
+
+} */
 
 .App-logo {
   height: 40vmin;
@@ -428,4 +429,11 @@ padding-left:1%;
 }
 .deleteAll{
   display: inline;
+}
+table>tr{
+  border: 1px solid #B4B4B4;
+
+}
+.white-background{
+  background-color: white;
 }

@@ -84,26 +84,27 @@ const updatetask=(taskId)=>{
   window.location.href='/updatetask'
 }
 fetchTasks();
-return(<div>
-<h1 className="text-center">All tasks</h1>
+return(<div className="bg-white">
 <div>
-  <table style={{border:"1px solid blacck"}}>
-  <tr>
-      <th>status</th>
-      <th>tasks</th>
-      <th>action</th>
+  <table className="bg-white" style={{width:"95%",marginRight:"3.3%",marginLeft:"1.7%"}}>
+  <tr className="bg-white ">
+      <th className="bg-white p-2">status</th>
+      <th className="bg-white p-2">tasks</th>
+      <th className="bg-white p-2">action</th>
     </tr>
     {tasks.map((task) => (
-      <tr key={task._id}>
-        <td>{task.status==="uncompleted"?(<IoMdTime/>):(<BsCheckCircle/>)}</td>
-       <td> {task.task}</td>
+      <tr key={task._id} className="bg-white">
+        <td className="bg-white p-2">{task.status==="uncompleted"?(<div className="text-black text-center" style={{backgroundColor:"#FFA500",width:"35%"}}><IoMdTime style={{backgroundColor:"#FFA500"}}/></div>):
+        ( <div className="text-white text-center" style={{backgroundColor:"#1959B7",width:"35%"}}><BsCheckCircle style={{backgroundColor:"#1959B7"}} /></div>)}</td>
+       <td className="bg-white"> {task.task}</td>
 
         {/* This is for deleting */}
-        <td>
-       <AiFillDelete onClick={() => handleDeleteOne(task._id, senderId)} className="bg-danger"/>
-         <LuEdit
+        <td className="bg-white p-2">
+        <LuEdit style={{color:"#FFA500"}}
               onClick={() => updatetask(task._id)} // Modified the onClick handler
             />
+       <AiFillDelete onClick={() => handleDeleteOne(task._id, senderId)} className="text-danger fs-4"/>
+        
             </td>
          </tr>
     ))}
