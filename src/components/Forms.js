@@ -28,8 +28,9 @@ const SearchForm = () => {
             placeholder="Search"
             onChange={handleChange}
             value={search}
-            className="w-25 rounded"
-style={{color:"#828282"}}
+            className=" rounded w-75"
+
+style={{color:"#828282", borderRight:"0px"}}
           />
           <div className="input-group-append">
             <span className="input-group-text border-start-0 rounded-end" style={{backgroundColor:"#1959B7"}}>
@@ -94,14 +95,14 @@ return(<div className="bg-white">
     </tr>
     {tasks.map((task) => (
       <tr key={task._id} className="bg-white">
-        <td className="bg-white p-2">{task.status==="uncompleted"?(<div className="text-black text-center" style={{backgroundColor:"#FFA500",width:"35%"}}><IoMdTime style={{backgroundColor:"#FFA500"}}/></div>):
-        ( <div className="text-white text-center" style={{backgroundColor:"#1959B7",width:"35%"}}><BsCheckCircle style={{backgroundColor:"#1959B7"}} /></div>)}</td>
+        <td className="bg-white p-2">{task.status==="uncompleted"?(<div className="text-black text-center" style={{backgroundColor:"#FFA500",width:"35%",borderRadius:"6px"}}><IoMdTime style={{backgroundColor:"#FFA500"}}/></div>):
+        ( <div className="text-white text-center" style={{backgroundColor:"#1959B7",width:"35%",borderRadius:"6px"}}><BsCheckCircle style={{backgroundColor:"#1959B7"}}/></div>)}</td>
        <td className="bg-white"> {task.task}</td>
 
         {/* This is for deleting */}
         <td className="bg-white p-2">
         <LuEdit style={{color:"#FFA500"}}
-              onClick={() => updatetask(task._id)} // Modified the onClick handler
+              onClick={() => updatetask(task._id)} 
             />
        <AiFillDelete onClick={() => handleDeleteOne(task._id, senderId)} className="text-danger fs-4"/>
         

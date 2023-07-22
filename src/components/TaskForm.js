@@ -44,36 +44,38 @@ const addnew=(e)=>{
 window.location.href='/addtask'
 }
   return (
-    <div className="bg-white w-100 h-100">
-<div className=" row d-flex align-items-center bg-white">
-  <div className="col-md-6">
-  <h1 style={{ color: "#1959B7" }} className="">To do</h1>
-  <div className="ml-auto bg-white">
-    <SearchForm/>
+    <div className="bg-white w-100 ">
+
+<div className="d-flex align-items-center">
+  <h1 style={{ color: "#1959B7", marginLeft: "2%" }}>
+    To do
+  </h1>
+  <div style={{ marginLeft: "20%" }}>
+    <SearchForm />
   </div>
-  </div>
-  <div className="col-md-6 bg-white">
-  <div className="bg-white">
+
+  <div className="bg-white ms-auto ">
     <BsSun />
   </div>
-  <div className=" bg-white">
-    <FaUserCircle style={{ color: "#1959B7" }} />
-  </div>
+  <div className="bg-white ml-3 p-5">
+    <FaUserCircle style={{ color: "#1959B7" }} className="fs-4" />
   </div>
 </div>
-<h1 className="text-center bg-white">All tasks</h1>
+
+
+<h1 className="text-center bg-white fw-bold fs-3">All tasks</h1>
   
 <div className=" bg-white">
-    <div onClick={addnew} className="text-white  d-flex align-items-center" style={{backgroundColor:"#1959B7", width:"7%",marginLeft:"2.7%"}}>
-{/* <div className="p-1 d-flex align-items-center d-flex"> */}
-<AiOutlinePlus style={{backgroundColor:"#1959B7" ,textAlign:"center"}} className="p-0"/>
-<p style={{backgroundColor:"#1959B7",textAlign:"center"}} className="p-0" >New</p>
-{/* </div> */}
+    <div onClick={addnew} className="text-white  d-flex align-items-center" style={{backgroundColor:"#1959B7", width:"6.5%",marginLeft:"2%"}}>
+<div className="d-flex align-items-center d-flex p-0">
+<AiOutlinePlus style={{backgroundColor:"#1959B7" ,textAlign:"center"}}/>
+New
 </div>
-<div className="d-flex align-items-center bg-white justify-content-center" style={{textAlign:"center"}}>
+</div>
+<div className="d-flex align-items-center bg-white justify-content-center mb-2" style={{marginLeft:"35%"}}>
      
      <AiFillDelete onClick={DeleteTasks} className="fs-3 bg-white"/>
-     <p className="fs-2 bg-white">Delete All tasks</p>
+     Delete All tasks
      </div>
      </div>
  
