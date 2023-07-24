@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
 import {AiFillDelete} from 'react-icons/ai'
-import {BsSun} from "react-icons/bs"
-import {FaUserCircle} from "react-icons/fa"
-import SearchForm  from "./Forms";
 import {AiOutlinePlus} from "react-icons/ai"
 import { AllTasks } from "./Forms";
+import { Header } from "./Forms";
 
 
 const senderId = localStorage.getItem("id");
@@ -45,26 +43,9 @@ window.location.href='/addtask'
 }
   return (
     <div className="bg-white w-100 ">
-
-<div className="d-flex align-items-center">
-  <h1 style={{ color: "#1959B7", marginLeft: "2%" }}>
-    To do
-  </h1>
-  <div style={{ marginLeft: "20%" }}>
-    <SearchForm />
-  </div>
-
-  <div className="bg-white ms-auto ">
-    <BsSun />
-  </div>
-  <div className="bg-white ml-3 p-5">
-    <FaUserCircle style={{ color: "#1959B7" }} className="fs-4" />
-  </div>
-</div>
-
-
+        <Header/>
 <h1 className="text-center bg-white fw-bold fs-3">All tasks</h1>
-  
+
 <div className=" bg-white">
     <div onClick={addnew} className="text-white  d-flex align-items-center" style={{backgroundColor:"#1959B7", width:"6.5%",marginLeft:"2%"}}>
 <div className="d-flex align-items-center d-flex p-0">
@@ -78,10 +59,7 @@ New
      Delete All tasks
      </div>
      </div>
- 
 <AllTasks/>
-    
-
  </div>
   );
 };

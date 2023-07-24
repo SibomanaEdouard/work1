@@ -4,6 +4,10 @@ import axios from "axios";
 import {AiFillDelete} from 'react-icons/ai'
 import {IoMdTime} from "react-icons/io"
 import {BsCheckCircle} from "react-icons/bs"
+import {BsSun} from "react-icons/bs"
+import {FaUserCircle} from "react-icons/fa"
+import UserInfor from "./aboutSettings";
+
 // import { UpdateTask } from "./updateTask";
 import {LuEdit} from "react-icons/lu"
 
@@ -20,33 +24,34 @@ const SearchForm = () => {
   };
 
   return (
-    <div>
-      <form>
-        <div className="input-group">
-          <input
-            type="text"
-            placeholder="Search"
-            onChange={handleChange}
-            value={search}
-            className=" rounded w-75"
-
-style={{color:"#828282", borderRight:"0px"}}
-          />
-          <div className="input-group-append">
-            <span className="input-group-text border-start-0 rounded-end" style={{backgroundColor:"#1959B7"}}>
-              <GrSearch className="text-white" style={{backgroundColor:"#1959B7"}}/>
-            </span>
-          </div>
+    <div className="d-flex justify-content-center">
+    <form className="w-100">
+      <div className="input-group d-flex justify-content-center"> {/* Add justify-content-center class */}
+        <input
+          type="text"
+          placeholder="Search"
+          onChange={handleChange}
+          value={search}
+          className="form-control rounded pr-5"
+          style={{ color: "#828282", borderRight: "0px" }}
+        />
+        <div className="input-group-append">
+          <span className="input-group-text bg-transparent border-0">
+          <GrSearch className="text-white" style={{ backgroundColor: "#1959B7",fontSize:"33px" }} />
+          </span>
         </div>
-      </form>
-    </div>
+      </div>
+    </form>
+  </div> 
+
+
+
   );
 };
 
 //this is to retrieve all tasks from the backend
 export const AllTasks=()=>{
   const[tasks,setTasks]=useState([]);
-
 const fetchTasks = async () => {
   try {
     const response = await axios.get(`http://localhost:5000/tasks?sender=${sender}`);
@@ -114,6 +119,33 @@ return(<div className="bg-white">
 </div>
 
 </div>)
+}
+export const Header=()=>{
+  const [showInfo,setShowInfo]=useState(false);
+  const handleShow=()=>{
+    setShowInfo(true);
+  }
+  return(<div>
+
+<div className="d-flex align-items-center pt-0">
+  <h1 style={{ color: "#1959B7", marginLeft: "2%" }}>
+    To do
+  </h1>
+  <div style={{ marginLeft: "20%" }}>
+    <SearchForm />
+  </div>
+
+  <div className="bg-white ms-auto ">
+    <BsSun />
+  </div>
+  <div className="bg-white ml-3 p-4 " onClick={handleShow}>
+    {showInfo && <UserInfor/>}
+    <FaUserCircle style={{ color: "#1959B7" }} className="fs-4" />
+  </div>
+</div>
+
+  </div>)
+
 }
 export default SearchForm;
 

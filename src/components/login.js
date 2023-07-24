@@ -46,17 +46,16 @@ function LoginForm() {
       if(response.ok){
         const user=await response.json();
 
-        //To take information from the backend
-
-        const Id=user;
-       
+        const Id=user._id;
+        const username=user.username;
+        localStorage.setItem('username',username);
         localStorage.setItem('id', Id);   
      setInputs({
       email:"",
       password:""
      });
      
-     //this to navigate to profiles
+     //this to navigate to homepage
      window.location.href='/tasks';
       }
       else{

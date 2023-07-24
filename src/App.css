@@ -437,3 +437,6 @@ table>tr{
 .white-background{
   background-color: white;
 }
+.sideBar{
+  height: 400px;
+}

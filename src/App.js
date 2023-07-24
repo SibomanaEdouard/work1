@@ -7,6 +7,11 @@ import LoginForm from './components/login';
 import NewTask from './components/newTask';
 import { UpdateTask } from './components/updateTask';
 import { useEffect } from 'react';
+import ContactInfo from './settings/contact';
+import Appearance from "./settings/settingComponents/appear"
+import History from "./settings/settingComponents/history"
+import Profile from "./settings/settingComponents/profile"
+import Secure from "./settings/settingComponents/secure"
 // import { TaskProvider } from './TaskContext';
 
 function App() {
@@ -31,6 +36,21 @@ function App() {
           case "/updatetask":
             document.body.style.backgroundColor = "#DEDEDE"; 
             break;
+            case "/contactinfo":
+              document.body.style.backgroundColor = "#ffffff"; 
+              break;
+              case "/appearance":
+                document.body.style.backgroundColor = "#ffffff"; 
+                break;
+                case "/profile":
+                  document.body.style.backgroundColor = "#ffffff"; 
+                  break;
+                  case "/security":
+                    document.body.style.backgroundColor = "#ffffff"; 
+                    break;
+                    case "/history":
+                      document.body.style.backgroundColor = "#ffffff"; 
+                      break;
       default:
         document.body.style.backgroundColor = "##DEDEDE"; 
         break;
@@ -43,15 +63,19 @@ function App() {
   }, []);
   return(
     <Router basename="/">
-      {/* <TaskProvider> */}
       <Routes>
       <Route path='/tasks' element={<Form/>}/>
       <Route path='/sign' element={<SignInForm/>}/>
       <Route path='/' element={<LoginForm/>}/>
       <Route path="/addtask" element={<NewTask/>}/>
       <Route path="/updatetask" element={<UpdateTask/>}/>
+      <Route path="/contactinfo" element={<ContactInfo/>}/>
+      <Route path="/appearance" element={<Appearance/>}/>
+      <Route path="/history" element={<History/>}/>
+      <Route path="/profile" element={<Profile/>}/>
+      <Route path="/security" element={<Secure/>}/>
       </Routes>
-      {/* </TaskProvider> */}
+     
     </Router>
 
   )  
