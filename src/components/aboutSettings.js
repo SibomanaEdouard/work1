@@ -43,9 +43,7 @@ const UserInfor = () => {
   const goToSetting = () => {
     window.location.href = "/contactinfo";
   };
-  // useEffect(() => {
-  //   fetchUsername();
-  // }, []); // Run fetchData only once on component mount
+
 
   //this is the function to retrive username
   const fetchUsername=async()=>{   
@@ -67,13 +65,11 @@ const UserInfor = () => {
         alert(error);
       }
   }
-  fetchUsername();
+  // fetchUsername();
 
   return (
     <div style={{backgroundColor:"#F6F6F6"}} className="p-3">
-     {/* {username!==null? <p>{username}</p>:<p>No username</p>} */}
-     {/* <p>{username}</p> */}
-    
+    <p>{username}</p>
       {tasks !== null ? <p style={{color:"#696969"}}>{tasks} Tasks</p> : <p>No tasks found</p>}
       <div onClick={goToSetting} className="fw-bold">
         <FiSettings />

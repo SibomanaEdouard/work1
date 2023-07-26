@@ -35,7 +35,7 @@ const SettingSideBar=()=>{
     const goToAppear=()=>{
         window.location.href="/appearance"
     }
-    return( <div className="col-md-3 border border-1 sidebar m-5 sideBar" >
+    return( <div className=" border border-1 sidebar" style={{marginLeft:"20%" ,height:"100%",borderRadius:"10px"}}>
          <div className="sidebar-item p-4">
       <CiUser style={{ color: "#1959B8" }} className="m-1"/>
       User settings

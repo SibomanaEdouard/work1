@@ -14,23 +14,25 @@ const handleChange=(e)=>{
    setInput(values=>({...values,[name]:value}));
 }
 
-    return(<div>
-        <h1 className="text-center">contact info</h1>
+    return(<div className="border border-1 p-5" style={{height:"99%",marginRight:"11%" ,borderRadius:"10px"}}>
+        <h1 className="text-center fw-bold" style={{marginLeft:"30%"}}>contact info</h1>
         <form>
-        <label for="phone">phone number</label><br/>
+        <label for="phone" className="fw-bold">phone number</label><br/>
             <input 
             type="tel"
             name="phone"
             value={input.phone||""}
             onChange={handleChange}
+            className="form-control"
             /><br/>
 
-            <label for="email">Email</label><br/>
+            <label for="email" className="fw-bold">Email</label><br/>
             <input 
             type="email"
             name="email"
             value={input.email||""}
             onChange={handleChange}
+            className="form-control"
             />
         </form>
         <h1>Address</h1>
@@ -44,8 +46,15 @@ const ContactInfo=()=>{
     return(<div>
 <Header />
 <SettingWord/>
-<SettingSideBar/>
-<IndividualInfo/>
+  <div className="d-flex">
+        <div className="col-md-2 m-2 mt-5 ">
+          <SettingSideBar />
+        </div>
+        <div className="col-md-8 mt-5">
+          <IndividualInfo />
+        </div>
+      </div>
+ 
     </div>)
 }
 export default ContactInfo;
