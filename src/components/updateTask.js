@@ -3,7 +3,8 @@ import {RxCross1} from "react-icons/rx"
 import axios from "axios";
 import { useState,useEffect } from "react";
 export const UpdateTask=()=>{
-    
+//let me get the mode from local storage
+const mode=localStorage.getItem('darkmode');    
     const taskId=localStorage.getItem('taskId');
     const senderId=localStorage.getItem('id');
 const[task,setTask]=useState("");
@@ -38,6 +39,7 @@ const fetchdata=async()=>{
 }
 fetchdata();
 },[taskId])
+
 //this is the function to update the task one by one
 const handleEdit = async () => {
   try {
@@ -47,7 +49,6 @@ const handleEdit = async () => {
       updatedtask: task,
       updatedstatus:status
     });
-
     if (response.status === 200) {
       alert('Task updated successfully');
       window.location.href = "/tasks";
@@ -65,19 +66,33 @@ const handleEdit = async () => {
   }
 };
 
+
 // Function to navigate to the homepage
 const homepage = () => {
     window.location.href = "/tasks";
   };
 return (
     <div className="d-flex justify-content-center align-items-center mt-5">
-      <div className="w-50 bg-white p-5 position-relative">
-      <div onClick={homepage} className="bg-white  position-absolute top-0 end-0 p-4">
-      <RxCross1 className="bg-white "/>
+      <div className="w-50 p-5 position-relative"
+      style={{backgroundColor:mode==='true'?("white"):("#0C1737")}}
+      >
+      <div onClick={homepage} className="position-absolute top-0 end-0 p-4"
+       style={{backgroundColor:mode==='true'?("white"):("#0C1737")}}
+      >
+      <RxCross1
+       style={{backgroundColor:mode==='true'?("white"):("#0C1737")}}
+      />
       </div>
-      <h1 className="text-center fs-3 fw-bold">Update Task</h1>
-      <form onSubmit={handleEdit}>
-        <label htmlFor="task">Name</label>
+      <h1 className="text-center fs-3 fw-bold"
+       style={{backgroundColor:mode==='true'?("white"):("#0C1737")}}
+      >Update Task</h1>
+      <form onSubmit={handleEdit} 
+       style={{backgroundColor:mode==='true'?("white"):("#0C1737")}}
+      >
+        <label htmlFor="task"
+         style={{backgroundColor:mode==='true'?("white"):("#0C1737")}}>
+        Name
+        </label>
         <input
           name="task"
           type="text"
@@ -86,7 +101,10 @@ return (
           placeholder="Enter task name"
           className="input-group form-control"
         /><br/>
-        <label>status</label><br/>
+        <label
+         style={{backgroundColor:mode==='true'?("white"):("#0C1737")}}
+        >
+          status</label><br/>
         <select className="form-control" value={status} onChange={handleStatusChange}>
             {options.map((option)=>(
 <option key={option.value} value={option.value}>

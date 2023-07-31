@@ -2,11 +2,23 @@ import { SettingWord } from "../setting";
 import SettingSideBar from "../setting";
 import { Header } from "../../components/Forms";
 const SetAppearance=()=>{
+//let me get from localstorage
+const mode=localStorage.getItem('darkmode');
 
-    return(<div className="border border-1 p-5" style={{marginRight:"11%",height:"98%",borderRadius:"10px"}}>
-<h1 className="text-center fw-bold fs-3" style={{ marginLeft:"10%"}}>Appearance</h1>
-<div>
-  <span className="fw-bold">Theme:</span>
+    return(<div className="border border-1 p-5" style={{marginRight:"11%",height:"98%",borderRadius:"10px",
+    backgroundColor:mode==='true'?('white'):('#0C1737')
+    }}>
+<h1 className="text-center fw-bold fs-3" style={{ marginLeft:"10%",
+  backgroundColor:mode==='true'?('white'):('#0C1737')
+}}>Appearance</h1>
+<div
+style={{ marginLeft:"10%",
+backgroundColor:mode==='true'?('white'):('#0C1737')
+}}
+>
+  <span className="fw-bold"
+  style={{ marginLeft:"10%",backgroundColor:mode==='true'?('white'):('#0C1737')}}
+  >Theme:</span>
   <select>
     <option value="default system">default system</option>
     <option value="dark mode">dark mode</option>
@@ -31,4 +43,5 @@ const Appearance=()=>{
       </div>
     </div>)
 }
+
 export default Appearance;

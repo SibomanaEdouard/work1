@@ -3,16 +3,11 @@
 }
 *{
   outline: none;
-  /* background-color:#DEDEDE; */
+
   box-sizing: border-box;
   text-decoration: none;
   
 }
-/* body{
-
- 
-
-} */
 
 .App-logo {
   height: 40vmin;
@@ -437,6 +432,28 @@ table>tr{
 .white-background{
   background-color: white;
 }
-/* .sideBar{
-  height: 400px;
-} */
+.sidebar-item:hover{
+  background-color: #1959B82B;
+}
+.sidebar-item:active{
+  background-color: #1959B82B;
+}
+
+
+:root {
+  --primary-bg-color: #ffffff; 
+--secondary-bg-color:#0D0E17;  
+}
+/* Light mode styles */
+.light-mode {
+  --bg-color: var(--primary-bg-color);
+
+  color:#ffffff;
+}
+
+/* Dark mode styles */
+.dark-mode {
+
+  --bg-color: var(--secondary-bg-color);
+  color: #000000;
+}

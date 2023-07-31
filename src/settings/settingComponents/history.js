@@ -3,13 +3,15 @@ import SettingSideBar from "../setting";
 import { Header } from "../../components/Forms";
 import axios from "axios";
 import { useState ,useEffect} from "react";
+import {RxCross2} from "react-icons/rx"
 
 //this is the component to display the the history
 const DeletedTasks = () => {
     const sender = localStorage.getItem('id');
     const [deleted, setDeleted] = useState([]);
     const [selectedTasks, setSelectedTasks] = useState({});
-  
+    //this is to get from local storage
+  const mode=localStorage.getItem('darkmode');
   
     // let's fetch deleted tasks
     const fetchDeletedData = async () => {
@@ -52,37 +54,97 @@ const DeletedTasks = () => {
     };
     //this is to count the number of selected tasks
     const selectedCount = Object.values(selectedTasks).filter(Boolean).length;
+    //this is the function to refresh the page
+    const handleRefresh=()=>{
+        window.location.reload();
+    }
+
+    //this is the function  to delete the selected task
+const handleDeleteSelected=async()=>{
+    try{
+    const selectedIds=Object.keys(selectedTasks).filter((taskId)=>selectedTasks[taskId]);
+    if(selectedIds.length===0){
+        alert("select task to be deleted");
+        return;
+    }else{
+
+
+    //this is to send the resquest to the backend
+    const response=await axios.post("http://localhost:5000/deletehistory",{
+       
+            sender,
+            taskId:selectedIds
+    })
+    if(response.status===200){
+        alert("The  task was deleted successfully");
+handleRefresh();
+    }else{
+        alert("Please check connections and Try again!");
+    }
+}
+    }catch(error){
+        console.log(error);
+        alert(error);
+    }
+}  
     return (
-      <div>
-        <h1 className="text-center">History</h1>
+      <div className="border border-1" style={{borderRadius:"10px",height:"99%",
+      backgroundColor:mode==='true'?('white'):('#0C1737')
+      }}>
+        <div className="p-5"
+        style={{backgroundColor:mode==='true'?('white'):('#0C1737')}}
+        >
+        <h1 className="text-center"
+         style={{backgroundColor:mode==='true'?('white'):('#0C1737')}}
+        >History</h1>
+        <div className="d-flex row ">
+                <div className="col-md-9">
+        <RxCross2 onClick={handleRefresh}/>
+       <span className="p-2"
+         style={{backgroundColor:mode==='true'?('white'):('#0C1737')}}
+       >{selectedCount} selected</span>
+       </div>
+       <div className="col-md-3">
+       <button onClick={handleDeleteSelected} className=" border-1  rounded d-flex" style={{width:"50%"}}>Delete</button>
+       </div>
+       </div>
   
         {deleted.map((task) => (
-          <div key={task._id}>
+          <div key={task._id}
+          style={{backgroundColor:mode==='true'?('white'):('#0C1737')}}
+          >
             <input
               type="checkbox"
               checked={selectedTasks[task._id] || false}
               onChange={() => handleCheckboxChange(task._id)}
             />
-            <span>{task.time}</span>
-            <span>{task.task}</span>
+            <span style={{marginRight:"10%",  backgroundColor:mode==='true'?('white'):('#0C1737')}} className="p-2">{task.date}</span>
+            <span
+              style={{backgroundColor:mode==='true'?('white'):('#0C1737')}}
+            >{task.task}</span>
           </div>
         ))}
-        {deleted.length === 0 && <h1>No History Found</h1>}
-       <span>{selectedCount}</span>
+        {deleted.length === 0 && <h1
+          style={{backgroundColor:mode==='true'?('white'):('#0C1737')}}
+        >No History Found</h1>}
+      </div>
       </div>
     );
   };
-  
-  
-
   
 const History=()=>{
     
     return(<div>
 <Header />
 <SettingWord/>
-<SettingSideBar/>
-<DeletedTasks/>
+<div className="d-flex">
+        <div className="col-md-2 mt-5 m-2" style={{marginRight:"2px"}}>
+          <SettingSideBar />
+        </div>
+        <div className="col-md-9 mt-5">
+        <DeletedTasks/>
+        </div>
+      </div>
     </div>)
 }
 export default History;
