@@ -162,19 +162,17 @@ function App() {
     setDarkmode((prevMode) => !prevMode);
     localStorage.setItem("darkmode", !darkmode);
     setBodyBackground(); // Call the function to update the background color
-
-    // setDarkmode((prevMode) => !prevMode);
   };
 
   return (
     <Router basename="/">
       <div>
+      {/* <div className={`App ${darkmode ? "dark-mode" : "light-mode"}`}> */}
         <button onClick={handleDarkmodeToggle}>
           {darkmode ? <WiMoonWaxingCrescent5 /> : <BsSun />}
         </button>
-      </div>
+        </div>
       <Routes>
-      
         <Route path='/tasks' element={<Form />} />
         <Route path='/sign' element={<SignInForm />} />
         <Route path='/' element={<LoginForm />} />
@@ -185,6 +183,7 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/security" element={<Secure />} />
       </Routes>
+    
     </Router>
   );
 }

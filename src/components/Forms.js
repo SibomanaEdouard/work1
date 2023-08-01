@@ -104,46 +104,42 @@ import {LuEdit} from "react-icons/lu"
 const sender=localStorage.getItem('id')
 // const senderId=localStorage.getItem('id')
 //this is the components to search 
-const SearchForm = () => {
-  //this is to get mode from localstorage
-  const mode=localStorage.getItem('darkmode')
+const SearchForm = ({ darkmode }) => {
   const [search, setSearch] = useState("");
 
   const handleChange = (e) => {
     setSearch(e.target.value);
   };
 
+  useEffect(() => {
+    // Update the background color when darkmode prop changes
+    document.body.style.backgroundColor = darkmode ? "#0D0E17" : "#DEDEDE";
+    document.body.style.color = darkmode ? "white" : "black";
+  }, [darkmode]);
+
   return (
-    <div className="d-flex justify-content-center" 
-    style={{backgroundColor: mode=="true"?("white"):("#0D0E17")}}>
-    <form className="w-100"
-    style={{backgroundColor: mode=="true"?("white"):("#0D0E17")}}
-    >
-      <div className="input-group d-flex justify-content-center"
-      style={{backgroundColor: mode=="true"?("white"):("#0D0E17")}}
-      > {/* Add justify-content-center class */}
-        <input
-          type="text"
-          placeholder="Search"
-          onChange={handleChange}
-          value={search}
-          className="form-control rounded pr-5"
-          style={{ color: "#828282", borderRight: "0px" ,backgroundColor: mode=="true"?("white"):("#0D0E17")}}
-        />
-        <div className="input-group-append text-white">
-          <span className="input-group-text bg-transparent border-0 text-white">
-          <CiSearch style={{ backgroundColor: mode=='true'?("#1959B7"):("#5D6B80"),fontSize:"33px"}}/>
-          </span>
+    <div className="d-flex justify-content-center" style={{ backgroundColor: darkmode ? "white" : "#0D0E17" }}>
+      <form className="w-100" style={{ backgroundColor: darkmode ? "white" : "#0D0E17" }}>
+        <div className="input-group d-flex justify-content-center" style={{ backgroundColor: darkmode ? "white" : "#0D0E17" }}>
+          {/* Add justify-content-center class */}
+          <input
+            type="text"
+            placeholder="Search"
+            onChange={handleChange}
+            value={search}
+            className="form-control rounded pr-5"
+            style={{ color: "#828282", borderRight: "0px", backgroundColor: darkmode ? "white" : "#0D0E17" }}
+          />
+          <div className="input-group-append text-white">
+            <span className="input-group-text bg-transparent border-0 text-white">
+              <CiSearch style={{ backgroundColor: darkmode ? "#1959B7" : "#5D6B80", fontSize: "33px" }} />
+            </span>
+          </div>
         </div>
-      </div>
-    </form>
-  </div> 
-
-
-
+      </form>
+    </div>
   );
 };
-
 
 // export const AllTasks = ({ darkmode }) => {
 //   const [tasks, setTasks] = useState([]);
@@ -362,38 +358,66 @@ export const AllTasks = ({ darkmode }) => {
   );
 };
 
-export const Header=()=>{
-  //this is to get the mode from localstorage
-const mode=localStorage.getItem("darkmode");
-  const [showInfo,setShowInfo]=useState(false);
-  const handleShow=()=>{
+// export const Header=()=>{
+//   //this is to get the mode from localstorage
+// const mode=localStorage.getItem("darkmode");
+//   const [showInfo,setShowInfo]=useState(false);
+//   const handleShow=()=>{
+//     setShowInfo(true);
+//   }
+//   return(<div
+//     style={{backgroundColor: mode=="true"?("white"):("#0D0E17")}}
+//   >
+
+// <div className="d-flex align-items-center pt-0" 
+// style={{backgroundColor: mode=="true"?("white"):("#0D0E17")}}>
+//   <h1 style={{ color: mode=="true"?("#1959B7"):("white"),
+//    marginLeft: "2%",
+//    backgroundColor: mode=="true"?("white"):("#0D0E17")}}>
+//     To do
+//   </h1>
+//   <div style={{ marginLeft: "20%",backgroundColor: mode=="true"?("white"):("#0D0E17") }}>
+//     <SearchForm  style={{ marginLeft: "20%",backgroundColor: mode=="true"?("white"):("#0D0E17")}}/>
+//   </div>
+// <div className="ms-auto" style={{backgroundColor: mode=="true"?("white"):("#0D0E17")}}>
+//     <BsSun  style={{color: mode=="true"?("black"):("white")}}/>
+//   </div>
+//   <div className="ml-3 p-4 " onClick={handleShow} style={{backgroundColor: mode=="true"?("white"):("#0D0E17")}}>
+//     {showInfo && <UserInfor/>}
+//     <FaUserCircle style={{ color: mode=='true'?("#1959B7"):("white") }} className="fs-4" />
+//   </div>
+// </div>
+
+//   </div>)
+
+// }
+
+export const Header = ({ darkmode }) => {
+  const [showInfo, setShowInfo] = useState(false);
+  const handleShow = () => {
     setShowInfo(true);
-  }
-  return(<div
-    style={{backgroundColor: mode=="true"?("white"):("#0D0E17")}}
-  >
+  };
 
-<div className="d-flex align-items-center pt-0" 
-style={{backgroundColor: mode=="true"?("white"):("#0D0E17")}}>
-  <h1 style={{ color: mode=="true"?("#1959B7"):("white"),
-   marginLeft: "2%",
-   backgroundColor: mode=="true"?("white"):("#0D0E17")}}>
-    To do
-  </h1>
-  <div style={{ marginLeft: "20%",backgroundColor: mode=="true"?("white"):("#0D0E17") }}>
-    <SearchForm  style={{ marginLeft: "20%",backgroundColor: mode=="true"?("white"):("#0D0E17")}}/>
-  </div>
-<div className="ms-auto" style={{backgroundColor: mode=="true"?("white"):("#0D0E17")}}>
-    <BsSun  style={{color: mode=="true"?("black"):("white")}}/>
-  </div>
-  <div className="ml-3 p-4 " onClick={handleShow} style={{backgroundColor: mode=="true"?("white"):("#0D0E17")}}>
-    {showInfo && <UserInfor/>}
-    <FaUserCircle style={{ color: mode=='true'?("#1959B7"):("white") }} className="fs-4" />
-  </div>
-</div>
+  return (
+    <div style={{ backgroundColor: darkmode ? "white" : "#0D0E17" }}>
+      <div className="d-flex align-items-center pt-0" style={{ backgroundColor: darkmode ? "white" : "#0D0E17" }}>
+        <h1 style={{ color: darkmode ? "#1959B7" : "white", marginLeft: "2%", backgroundColor: darkmode ? "white" : "#0D0E17" }}>
+          To do
+        </h1>
+        <div style={{ marginLeft: "20%", backgroundColor: darkmode ? "white" : "#0D0E17" }}>
+          <SearchForm style={{ marginLeft: "20%", backgroundColor: darkmode ? "white" : "#0D0E17" }} />
+        </div>
+        <div className="ms-auto" style={{ backgroundColor: darkmode ? "white" : "#0D0E17" }}>
+          <BsSun style={{ color: darkmode ? "black" : "white" }} />
+        </div>
+        <div className="ml-3 p-4" onClick={handleShow} style={{ backgroundColor: darkmode ? "white" : "#0D0E17" }}>
+          {showInfo && <UserInfor />}
+          <FaUserCircle style={{ color: darkmode ? "#1959B7" : "white" }} className="fs-4" />
+        </div>
+      </div>
+    </div>
+  );
+};
 
-  </div>)
-
-}
 export default SearchForm;
 
