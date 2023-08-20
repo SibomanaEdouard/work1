@@ -28,7 +28,7 @@ useEffect(()=>{
   const sender=senderId
 const fetchdata=async()=>{
   try {
-    const response = await axios.get(`http://localhost:5000/update/${taskId}?sender=${sender}`);
+    const response = await axios.get(`https://koracha.onrender.com/update/${taskId}?sender=${sender}`);
     const taskData = response.data;
     setTask(taskData.task);
     setStatus(taskData.status);
@@ -43,7 +43,7 @@ fetchdata();
 //this is the function to update the task one by one
 const handleEdit = async () => {
   try {
-    const response = await axios.put('http://localhost:5000', {
+    const response = await axios.put('https://koracha.onrender.com', {
       sender: senderId,
       taskId,
       updatedtask: task,

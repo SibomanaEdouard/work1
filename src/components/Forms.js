@@ -72,7 +72,7 @@ export const AllTasks = () => {
 
   const fetchTasks = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/tasks?sender=${sender}`);
+      const response = await axios.get(`https://koracha.onrender.com/tasks?sender=${sender}`);
       const Task = response.data;
       setTasks(Task);
       setLoading(false);
@@ -84,7 +84,7 @@ export const AllTasks = () => {
 
   const handleDeleteOne = async (taskId, senderId) => {
     try {
-      const Response = await axios.delete("http://localhost:5000/one", {
+      const Response = await axios.delete("https://koracha.onrender.com/one", {
         data: {
           sender: senderId,
           taskId: taskId,

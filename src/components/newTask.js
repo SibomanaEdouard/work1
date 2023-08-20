@@ -20,7 +20,7 @@ const NewTask = () => {
   const fetchData = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:5000/tasks", { task, sender });
+      const response = await axios.post("https://koracha.onrender.com/tasks", { task, sender });
       console.log(response.data);
       setTask("");
       if (response.status === 200) {

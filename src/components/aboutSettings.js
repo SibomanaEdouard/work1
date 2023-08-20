@@ -19,7 +19,7 @@ const UserInfor = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.post("http://localhost:5000/getNumber", {
+      const response = await axios.post("https://koracha.onrender.com/getNumber", {
         sender,
       });
 
@@ -51,7 +51,7 @@ const UserInfor = () => {
   //this is the function to retrive username
   const fetchUsername=async()=>{   
     try {
-        const response = await axios.post("http://localhost:5000/getUsername", {
+        const response = await axios.post("https://koracha.onrender.com/getUsername", {
         sender,
         });
   
@@ -83,7 +83,7 @@ const UserInfor = () => {
         <div className="text-center mb-3">
           {image ? (
             <img
-              src={`http://localhost:5000/uploads/${image}`}
+              src={`https://koracha.onrender.com/uploads/${image}`}
               alt="profile"
               style={{ width: "100px", height: "100px", borderRadius: "50%" }}
             />

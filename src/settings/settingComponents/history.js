@@ -16,7 +16,7 @@ const DeletedTasks = () => {
     // let's fetch deleted tasks
     const fetchDeletedData = async () => {
       try {
-        const response = await axios.post("http://localhost:5000/getdeleted", { sender });
+        const response = await axios.post("https://koracha.onrender.com/getdeleted", { sender });
         if (response.status === 200) {
           const data = response.data;
           if (Array.isArray(data)) {
@@ -70,7 +70,7 @@ const handleDeleteSelected=async()=>{
 
 
     //this is to send the resquest to the backend
-    const response=await axios.post("http://localhost:5000/deletehistory",{
+    const response=await axios.post("https://koracha.onrender.com/deletehistory",{
        
             sender,
             taskId:selectedIds

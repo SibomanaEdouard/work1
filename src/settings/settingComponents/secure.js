@@ -23,7 +23,7 @@ export const FormToChangePass = () => {
 const updatePassword = async () => {
   try {
     // Send the request to the backend server
-    const response = await axios.put("http://localhost:5000/updatepassword", {
+    const response = await axios.put("https://koracha.onrender.com/updatepassword", {
       user,
       oldpassword: input.oldpassword,
       newpassword: input.newpassword,
@@ -35,7 +35,7 @@ const updatePassword = async () => {
       refresh();
     } else {
       throw new Error(response.data.error);
-      console.log(response.data.error);
+      // console.log(response.data.error);
     }
   } catch (error) {
     console.log(error);

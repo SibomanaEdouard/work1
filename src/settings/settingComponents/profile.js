@@ -29,7 +29,7 @@ const [image,setImage]=useState(null);
 //to fetch all tasks
   const fetchData = async () => {
     try {
-      const response = await axios.post("http://localhost:5000/getNumber", {
+      const response = await axios.post("https://koracha.onrender.com/getNumber", {
         sender:user,
       });
 
@@ -52,7 +52,7 @@ useEffect(()=>{
     // const sender=user
   const fetchdata=async()=>{
     try {
-      const response = await axios.post("http://localhost:5000/userinfo",{user});
+      const response = await axios.post("https://koracha.onrender.com/userinfo",{user});
       const userData = response.data;
       setEmail(userData.email);
       setPhone(userData.phone);
@@ -77,7 +77,7 @@ const handleChangeE=(e)=>{
 const updateInfo=async()=>{
   try{
     //this is to send request to the backend server
-  const response=await axios.put("http://localhost:5000/updateinfo",{user,email,phone});
+  const response=await axios.put("https://koracha.onrender.com/updateinfo",{user,email,phone});
   if(response.status===200){
 alert(response.data.message);
 window.location.reload();
@@ -98,7 +98,7 @@ useEffect(() => {
 
 const countUnCompleted=async()=>{
   try{
-  const response=await axios.post("http://localhost:5000/countuncompleted",{user});
+  const response=await axios.post("https://koracha.onrender.com/countuncompleted",{user});
 
   if(response.status===200){
   const data=response.data;
@@ -118,7 +118,7 @@ useEffect(() => {
 }, []); // Run fetchData only once on component mount
 const countCompleted=async()=>{
   try{
-  const response=await axios.post("http://localhost:5000/countcompleted",{user});
+  const response=await axios.post("https://koracha.onrender.com/countcompleted",{user});
 
   if(response.status===200){
   const data=response.data;
@@ -144,7 +144,7 @@ const fileInputRef = useRef(null);
           formData.append('image', file);
           formData.append('userId',user)
       
-          const response = await axios.put('http://localhost:5000/updateImage', formData, {
+          const response = await axios.put('https://koracha.onrender.com/updateImage', formData, {
             headers: {
               'Content-Type': 'multipart/form-data'
             },
@@ -170,7 +170,7 @@ const fileInputRef = useRef(null);
 <p className="fw-bold">Profile</p>
         {image ? (
          <div style={{borderRadius:"50%"}}>
-            <img src={`http://localhost:5000/uploads/${image}`} alt="profile" 
+            <img src={`https://koracha.onrender.com/uploads/${image}`} alt="profile" 
             style={{width:"8%",height:"15vh",borderRadius:"50%",boxShadow:"none"}}/>
             <BsCameraFill onClick={handleButtonClick} style={{color:"#1959B7"}}/>
             </div>
