@@ -92,6 +92,7 @@ export const AllTasks = () => {
       });
       if (Response.status === 200) {
         alert(Response.data.message);
+        window.location.reload();
       } else if (Response.status === 404) {
         alert(Response.data.message);
       } else {

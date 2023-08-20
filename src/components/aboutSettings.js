@@ -7,7 +7,7 @@ import axios from "axios";
 const sender = localStorage.getItem("id");
 
 const UserInfor = () => {
-  const mode=localStorage.getItem('darkmode');
+  // const mode=localStorage.getItem('darkmode');
   const [tasks, setTasks] = useState("");
   const [username,setUsername]=useState("");
   const [image,setImage]=useState(null);
@@ -74,7 +74,9 @@ const UserInfor = () => {
 
   return (
     <div
-      style={{ backgroundColor: mode=='true'?("#F6F6F6"):("#0D0E17"),marginRight:"2%",marginTop:"2%" }}
+      style={{ 
+        backgroundColor:"#F6F6F6",
+        marginRight:"2%",marginTop:"2%" }}
       className="position-fixed top-5 end-0 p-2 "
     >
       <div className="d-flex flex-column align-items-center">
