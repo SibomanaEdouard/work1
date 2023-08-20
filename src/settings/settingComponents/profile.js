@@ -296,8 +296,6 @@ const fileInputRef = useRef(null);
 
 
 const Profile=()=>{
-//let get the mode from local storage
-// const mode=localStorage.getItem('darkmode');
 
     return(<div>
 <Header />
