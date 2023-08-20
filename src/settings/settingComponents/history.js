@@ -118,14 +118,17 @@ handleRefresh();
               checked={selectedTasks[task._id] || false}
               onChange={() => handleCheckboxChange(task._id)}
             />
-            <span style={{marginRight:"10%",  backgroundColor:mode==='true'?('white'):('#0C1737')}} className="p-2">{task.date}</span>
+            <span style={{marginRight:"10%",  
+            // backgroundColor:mode==='true'?('white'):('#0C1737')
+          }} 
+            className="p-2">{task.date}</span>
             <span
-              style={{backgroundColor:mode==='true'?('white'):('#0C1737')}}
+              // style={{backgroundColor:mode==='true'?('white'):('#0C1737')}}
             >{task.task}</span>
           </div>
         ))}
         {deleted.length === 0 && <h1
-          style={{backgroundColor:mode==='true'?('white'):('#0C1737')}}
+          // style={{backgroundColor:mode==='true'?('white'):('#0C1737')}}
         >No History Found</h1>}
       </div>
       </div>

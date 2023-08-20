@@ -91,13 +91,13 @@ import { AiFillDelete } from "react-icons/ai";
 import { AiOutlinePlus } from "react-icons/ai";
 import { AllTasks } from "./Forms";
 import { Header } from "./Forms";
-import useDarkMode from "../useDarkMode";
+// import useDarkMode from "../useDarkMode";
 const senderId = localStorage.getItem("id");
 
 const Form = () => {
   // const darkmode = localStorage.getItem("darkmode")==="true";
   const [tasks, setTasks] = useState([]);
-  const [darkmode] = useDarkMode();
+  // const [darkmode] = useDarkMode();
 
   const DeleteTasks = async () => {
     try {
@@ -128,14 +128,14 @@ const Form = () => {
   };
 
   return (
-    <div className={`w-100 ${darkmode ? "dark-mode" : "light-mode"}`}>
+    <div className="w-100">
       <Header />
    <div className="header-section">
         <h1
           className="text-center fw-bold fs-3"
           style={{
-            backgroundColor: !darkmode ? "#0D0E17" : "white",
-            color: !darkmode ? "white" : "black",
+            backgroundColor: "white",
+            color: "black",
           }}
         >
           All tasks
@@ -161,13 +161,13 @@ const Form = () => {
           <AiFillDelete className="fs-3" />
           <span
           style={{
-            backgroundColor: !darkmode ? "#0D0E17" : "white",
-            color: !darkmode ? "white" : "black",
+            backgroundColor:  "white",
+            // color: !darkmode ? "white" : "black",
           }}
           >Delete All tasks</span>
         </div>
       </div>
-      <AllTasks darkmode={darkmode} />
+      <AllTasks />
     </div>
   );
 };

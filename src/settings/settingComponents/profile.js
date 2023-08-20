@@ -9,7 +9,7 @@ import { IoIosCall } from "react-icons/io";
 import {IoMdTime} from "react-icons/io"
 import {BsCheckCircle} from "react-icons/bs"
 import {CiUser} from "react-icons/ci"
-import { BiBorderRadius } from "react-icons/bi";
+// import { BiBorderRadius } from "react-icons/bi";
 
 const user=localStorage.getItem('id')
 const UserProfile=()=>{
@@ -21,7 +21,7 @@ const [unCompleted,setUnCompleted]=useState("");
 const [tasks,setTasks]=useState("");
 const [image,setImage]=useState(null);
 //let get the mode from local storage
-const mode=localStorage.getItem('darkmode');
+
 
   useEffect(() => {
     fetchData();
@@ -160,7 +160,7 @@ const fileInputRef = useRef(null);
       };
       
     return(<div className="border border-1 m-1 p-5" style={{borderRadius:"10px",
-    backgroundColor:mode==='true'?('white'):('#0C1737')
+  
     
     }}>
        
@@ -193,13 +193,16 @@ const fileInputRef = useRef(null);
       </div>
       <div className="text-center">
         <CiUser/>
-      <span style={{paddingLeft:"3px",backgroundColor:mode==='true'?('white'):('#0C1737')}}>{username}</span>
+      <span style={{paddingLeft:"3px",
+      // backgroundColor:mode==='true'?('white'):('#0C1737')
+    }}
+      >{username}</span>
       </div>
 <div className="row">
   <div className="col-md-5">
 <BsCheckCircle style={{color:"#1959B7"}}/>
 <span
-style={{backgroundColor:mode==='true'?('white'):('#0C1737')}}
+// style={{backgroundColor:mode==='true'?('white'):('#0C1737')}}
 >
   Total tasks : {tasks}
 </span>
@@ -207,7 +210,7 @@ style={{backgroundColor:mode==='true'?('white'):('#0C1737')}}
   <div className="col-md-5">
 <BsCheckCircle style={{color:"#1959B7"}}/>
 <span
-style={{backgroundColor:mode==='true'?('white'):('#0C1737')}}
+// style={{backgroundColor:mode==='true'?('white'):('#0C1737')}}
 >
   completed tasks:
   {completed}
@@ -216,7 +219,7 @@ style={{backgroundColor:mode==='true'?('white'):('#0C1737')}}
   <div className="col-md-2">
 <IoMdTime style={{color:"#1959B7"}}/>
 <span
-style={{backgroundColor:mode==='true'?('white'):('#0C1737')}}
+// style={{backgroundColor:mode==='true'?('white'):('#0C1737')}}
 >
   pending tasks:
   {unCompleted}
@@ -226,16 +229,16 @@ style={{backgroundColor:mode==='true'?('white'):('#0C1737')}}
 </div>
     
         <form onSubmit={updateInfo}
-        style={{backgroundColor:mode==='true'?('white'):('#0C1737')}}
+        // style={{backgroundColor:mode==='true'?('white'):('#0C1737')}}
         >
             <div className="row m-1"
-             style={{backgroundColor:mode==='true'?('white'):('#0C1737')}}
+            //  style={{backgroundColor:mode==='true'?('white'):('#0C1737')}}
             >
             <div className="col-md-6"
-             style={{backgroundColor:mode==='true'?('white'):('#0C1737')}}
+            //  style={{backgroundColor:mode==='true'?('white'):('#0C1737')}}
             >
             <label
-             style={{backgroundColor:mode==='true'?('white'):('#0C1737')}}
+            //  style={{backgroundColor:mode==='true'?('white'):('#0C1737')}}
             >Phone number</label>
                 
                   <div className="input-group">
@@ -255,10 +258,10 @@ style={{backgroundColor:mode==='true'?('white'):('#0C1737')}}
             </div>
             </div>
             <div className="col-md-6"
-             style={{backgroundColor:mode==='true'?('white'):('#0C1737')}}
+            //  style={{backgroundColor:mode==='true'?('white'):('#0C1737')}}
             >
               <label
-               style={{backgroundColor:mode==='true'?('white'):('#0C1737')}}
+              //  style={{backgroundColor:mode==='true'?('white'):('#0C1737')}}
               >Email</label>
             <div className="input-group">
       <div className="input-group-prepend">
@@ -294,7 +297,7 @@ style={{backgroundColor:mode==='true'?('white'):('#0C1737')}}
 
 const Profile=()=>{
 //let get the mode from local storage
-const mode=localStorage.getItem('darkmode');
+// const mode=localStorage.getItem('darkmode');
 
     return(<div>
 <Header />

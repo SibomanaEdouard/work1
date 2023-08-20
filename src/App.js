@@ -114,63 +114,61 @@ import Appearance from "./settings/settingComponents/appear";
 import History from "./settings/settingComponents/history";
 import Profile from "./settings/settingComponents/profile";
 import Secure from "./settings/settingComponents/secure";
-import { WiMoonWaxingCrescent5 } from "react-icons/wi";
-import { BsSun } from "react-icons/bs";
-import { getDarkMode } from "./mode";
-// import useDarkMode from "./useDarkMode";
-import { AllTasks } from "./components/Forms";
+
+
 function App() {
-  const [darkmode, setDarkmode] = useState(getDarkMode());
-  // const [darkmode, setDarkmode] = useDarkMode();
-  useEffect(() => {
-    setBodyBackground();
-  }, [darkmode]);
-  const setBodyBackground = () => {
     const currentPath = window.location.pathname;
     switch (currentPath) {
       case "/addtask":
-        document.body.style.backgroundColor = darkmode ? "#0D0E17" : "#DEDEDE";
-        document.body.style.color = darkmode ? "#ffffff" : "#000000";
+        document.body.style.backgroundColor =  "#DEDEDE";
         break;
       case "/tasks":
-        document.body.style.backgroundColor = darkmode ? "#0D0E17" : "#ffffff";
-        document.body.style.color = darkmode ? "#ffffff" : "#000000";
+        document.body.style.backgroundColor = "#ffffff";
+      
         break;
       case "/sign":
       case "/":
         document.body.style.backgroundColor = "#DEDEDE";
         break;
       case "/updatetask":
-        document.body.style.backgroundColor = darkmode ? "#0D0E17" : "#DEDEDE";
-        document.body.style.color = darkmode ? "#ffffff" : "#000000";
+        document.body.style.backgroundColor = "#DEDEDE";
         break;
       case "/appearance":
+        document.body.style.backgroundColor ="#ffffff";
+        break;
+
       case "/profile":
+        document.body.style.backgroundColor ="#ffffff";
+        break;
+
       case "/security":
+        document.body.style.backgroundColor ="#ffffff";
+        break;
+
       case "/history":
-        document.body.style.backgroundColor = darkmode ? "#0D0E17" : "#ffffff";
-        document.body.style.color = darkmode ? "#ffffff" : "#000000";
+        document.body.style.backgroundColor ="#ffffff";
+        // document.body.style.color = darkmode ? "#ffffff" : "#000000";
         break;
       default:
-        document.body.style.backgroundColor = darkmode ? "#0D0E17" : "#ffffff";
-        document.body.style.color = darkmode ? "#ffffff" : "#000000";
+        document.body.style.backgroundColor = "#ffffff";
+        // document.body.style.color = darkmode ? "#ffffff" : "#000000";
         break;
     }
-  };
+  // };
 
-  const handleDarkmodeToggle = () => {
-    setDarkmode((prevMode) => !prevMode);
-    localStorage.setItem("darkmode", !darkmode);
-    setBodyBackground(); // Call the function to update the background color
-  };
+  // const handleDarkmodeToggle = () => {
+  //   setDarkmode((prevMode) => !prevMode);
+  //   localStorage.setItem("darkmode", !darkmode);
+  //   setBodyBackground(); // Call the function to update the background color
+  // };
 
   return (
     <Router basename="/">
       <div>
       {/* <div className={`App ${darkmode ? "dark-mode" : "light-mode"}`}> */}
-        <button onClick={handleDarkmodeToggle}>
+        {/* <button onClick={handleDarkmodeToggle}>
           {darkmode ? <WiMoonWaxingCrescent5 /> : <BsSun />}
-        </button>
+        </button> */}
         </div>
       <Routes>
         <Route path='/tasks' element={<Form />} />
