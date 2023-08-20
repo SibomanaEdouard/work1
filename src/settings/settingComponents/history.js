@@ -43,7 +43,7 @@ const DeletedTasks = () => {
   
     useEffect(() => {
       fetchDeletedData();
-    }, []);
+    });
   
     // Handle checkbox change
     const handleCheckboxChange = (taskId) => {
