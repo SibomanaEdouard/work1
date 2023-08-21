@@ -154,6 +154,7 @@ const fileInputRef = useRef(null);
           });
           const imageUrl = response.data.imageUrl;
           console.log('Image URL:', imageUrl);
+          window.location.reload();
         } catch (error) {
           console.error('Image upload failed:', error);
         }
