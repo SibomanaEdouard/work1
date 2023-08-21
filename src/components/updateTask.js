@@ -38,7 +38,7 @@ const fetchdata=async()=>{
 
 }
 fetchdata();
-},[taskId])
+})
 
 //this is the function to update the task one by one
 const handleEdit = async () => {
