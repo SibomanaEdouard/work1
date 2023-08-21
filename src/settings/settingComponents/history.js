@@ -10,40 +10,38 @@ const DeletedTasks = () => {
     const sender = localStorage.getItem('id');
     const [deleted, setDeleted] = useState([]);
     const [selectedTasks, setSelectedTasks] = useState({});
-    //this is to get from local storage
-  // const mode=localStorage.getItem('darkmode');
+   
   
     // let's fetch deleted tasks
-    const fetchDeletedData = async () => {
-      try {
-        const response = await axios.post("https://koracha.onrender.com/getdeleted", { sender });
-        if (response.status === 200) {
-          const data = response.data;
-          if (Array.isArray(data)) {
-
-        // Create an object with task IDs as keys and set all values to false initially
-            const selected = data.reduce((acc, task) => {
-              acc[task._id] = false;
-              return acc;
-            }, {});
-            setDeleted(data);
-          
-            setSelectedTasks(selected);
-          } else {
-            console.log("Invalid data format received from the server.");
-          }
-        } else {
-          alert("Failed to fetch history");
-        }
-      } catch (error) {
-        console.log(error);
-        alert("Failed to fetch history. Please check your internet connection.");
-      }
-    };
-  
     useEffect(() => {
+      const fetchDeletedData = async () => {
+        try {
+          const response = await axios.post("https://koracha.onrender.com/getdeleted", { sender });
+          if (response.status === 200) {
+            const data = response.data;
+            if (Array.isArray(data)) {
+  
+          // Create an object with task IDs as keys and set all values to false initially
+              const selected = data.reduce((acc, task) => {
+                acc[task._id] = false;
+                return acc;
+              }, {});
+              setDeleted(data);
+            
+              setSelectedTasks(selected);
+            } else {
+              console.log("Invalid data format received from the server.");
+            }
+          } else {
+            alert("Failed to fetch history");
+          }
+        } catch (error) {
+          console.log(error);
+          alert("Failed to fetch history. Please check your internet connection.");
+        }
+      };
       fetchDeletedData();
-    });
+    },[sender]);
   
     // Handle checkbox change
     const handleCheckboxChange = (taskId) => {
@@ -52,8 +50,10 @@ const DeletedTasks = () => {
         [taskId]: !prevSelected[taskId],
       }));
     };
+
     //this is to count the number of selected tasks
     const selectedCount = Object.values(selectedTasks).filter(Boolean).length;
+    
     //this is the function to refresh the page
     const handleRefresh=()=>{
         window.location.reload();
@@ -92,16 +92,13 @@ handleRefresh();
       // backgroundColor:mode==='true'?('white'):('#0C1737')
       }}>
         <div className="p-5"
-        // style={{backgroundColor:mode==='true'?('white'):('#0C1737')}}
         >
         <h1 className="text-center"
-        //  style={{backgroundColor:mode==='true'?('white'):('#0C1737')}}
         >History</h1>
         <div className="d-flex row ">
                 <div className="col-md-9">
         <RxCross2 onClick={handleRefresh}/>
        <span className="p-2"
-        //  style={{backgroundColor:mode==='true'?('white'):('#0C1737')}}
        >{selectedCount} selected</span>
        </div>
        <div className="col-md-3">
@@ -111,7 +108,6 @@ handleRefresh();
   
         {deleted.map((task) => (
           <div key={task._id}
-          // style={{backgroundColor:mode==='true'?('white'):('#0C1737')}}
           >
             <input
               type="checkbox"
@@ -119,16 +115,13 @@ handleRefresh();
               onChange={() => handleCheckboxChange(task._id)}
             />
             <span style={{marginRight:"10%",  
-            // backgroundColor:mode==='true'?('white'):('#0C1737')
           }} 
             className="p-2">{task.date}</span>
             <span
-              // style={{backgroundColor:mode==='true'?('white'):('#0C1737')}}
             >{task.task}</span>
           </div>
         ))}
         {deleted.length === 0 && <h1
-          // style={{backgroundColor:mode==='true'?('white'):('#0C1737')}}
         >No History Found</h1>}
       </div>
       </div>

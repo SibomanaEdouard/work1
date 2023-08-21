@@ -9,7 +9,6 @@ import { IoIosCall } from "react-icons/io";
 import {IoMdTime} from "react-icons/io"
 import {BsCheckCircle} from "react-icons/bs"
 import {CiUser} from "react-icons/ci"
-// import { BiBorderRadius } from "react-icons/bi";
 
 const user=localStorage.getItem('id')
 const UserProfile=()=>{
@@ -20,12 +19,13 @@ const [completed,setCompleted]=useState("");
 const [unCompleted,setUnCompleted]=useState("");
 const [tasks,setTasks]=useState("");
 const [image,setImage]=useState(null);
-//let get the mode from local storage
+
 
 
   useEffect(() => {
     fetchData();
   }, []); // Run fetchData only once on component mount
+
 //to fetch all tasks
   const fetchData = async () => {
     try {
@@ -49,7 +49,7 @@ const [image,setImage]=useState(null);
 
 //this is the to get information about the before edit
 useEffect(()=>{
-    // const sender=user
+  
   const fetchdata=async()=>{
     try {
       const response = await axios.post("https://koracha.onrender.com/userinfo",{user});
@@ -62,7 +62,6 @@ useEffect(()=>{
       console.error('Error fetching task data:', error);
     }
 }
-//}
   fetchdata();
   },[])
 const handleChangep=(e)=>{
@@ -131,6 +130,7 @@ const countCompleted=async()=>{
   alert(error);
 }
 }
+
 //this is to update image
 const fileInputRef = useRef(null);
 
