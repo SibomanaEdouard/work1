@@ -40,7 +40,6 @@ const SearchForm = ({ darkmode }) => {
         <div className="input-group d-flex justify-content-center" 
         // style={{ backgroundColor: darkmode ? "white" : "#0D0E17" }}
         >
-          {/* Add justify-content-center class */}
           <input
             type="text"
             placeholder="Search"
@@ -184,7 +183,7 @@ export const AllTasks = () => {
 
 
 
-export const Header = ({ darkmode }) => {
+export const Header = () => {
   const [showInfo, setShowInfo] = useState(false);
   const handleShow = () => {
     setShowInfo(true);

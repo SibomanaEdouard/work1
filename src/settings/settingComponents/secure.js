@@ -11,8 +11,6 @@ const refresh=()=>{
 }
 export const FormToChangePass = () => {
   const user=localStorage.getItem('id');
-  //let me get the mode from the localstorage
-  const mode=localStorage.getItem('darkmode');
   const [input, setInput] = useState({
     oldpassword: "",
     newpassword: "",
@@ -56,16 +54,14 @@ const updatePassword = async () => {
 
   return (
     <div className="border border-1 p-5" style={{marginLeft:"11%",borderRadius:"10px",
-    backgroundColor:mode==='true'?('white'):('#0C1737')
+
     }}>
-      <h1 className="text-center" style={{marginLeft:"20%",backgroundColor:mode==='true'?('white'):('#0C1737')}}>
+      <h1 className="text-center">
         Change password
         </h1>
-      <form onSubmit={updatePassword}
-      style={{backgroundColor:mode==='true'?('white'):('#0C1737')}}
+      <form onSubmit={updatePassword}   
       >
         <label className="fw-bold" htmlFor="oldpassword"
-          style={{backgroundColor:mode==='true'?('white'):('#0C1737')}}
         >
           Old Password
         </label>
@@ -101,7 +97,7 @@ const updatePassword = async () => {
         </div>
         <br />
         <label className="fw-bold" htmlFor="newpassword"
-          style={{backgroundColor:mode==='true'?('white'):('#0C1737')}}
+
         >
           New Password
         </label>
@@ -137,7 +133,7 @@ const updatePassword = async () => {
         </div>
         <br />
         <label className="fw-bold" htmlFor="confirmpassword"
-          style={{backgroundColor:mode==='true'?('white'):('#0C1737')}}
+
         >
           Confirm Password
         </label>
