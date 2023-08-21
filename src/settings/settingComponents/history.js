@@ -11,7 +11,7 @@ const DeletedTasks = () => {
     const [deleted, setDeleted] = useState([]);
     const [selectedTasks, setSelectedTasks] = useState({});
     //this is to get from local storage
-  const mode=localStorage.getItem('darkmode');
+  // const mode=localStorage.getItem('darkmode');
   
     // let's fetch deleted tasks
     const fetchDeletedData = async () => {
@@ -89,19 +89,19 @@ handleRefresh();
 }  
     return (
       <div className="border border-1" style={{borderRadius:"10px",height:"99%",
-      backgroundColor:mode==='true'?('white'):('#0C1737')
+      // backgroundColor:mode==='true'?('white'):('#0C1737')
       }}>
         <div className="p-5"
-        style={{backgroundColor:mode==='true'?('white'):('#0C1737')}}
+        // style={{backgroundColor:mode==='true'?('white'):('#0C1737')}}
         >
         <h1 className="text-center"
-         style={{backgroundColor:mode==='true'?('white'):('#0C1737')}}
+        //  style={{backgroundColor:mode==='true'?('white'):('#0C1737')}}
         >History</h1>
         <div className="d-flex row ">
                 <div className="col-md-9">
         <RxCross2 onClick={handleRefresh}/>
        <span className="p-2"
-         style={{backgroundColor:mode==='true'?('white'):('#0C1737')}}
+        //  style={{backgroundColor:mode==='true'?('white'):('#0C1737')}}
        >{selectedCount} selected</span>
        </div>
        <div className="col-md-3">
@@ -111,7 +111,7 @@ handleRefresh();
   
         {deleted.map((task) => (
           <div key={task._id}
-          style={{backgroundColor:mode==='true'?('white'):('#0C1737')}}
+          // style={{backgroundColor:mode==='true'?('white'):('#0C1737')}}
           >
             <input
               type="checkbox"
